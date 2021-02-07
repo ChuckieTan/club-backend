@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface ImageService {
     int getMaxImageId();
-    int saveImage(MultipartFile file) throws IOException;
+    String saveImage(MultipartFile file) throws IOException;
     byte[] getImage(String imageName) throws IOException;
 }

@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -79,14 +80,15 @@ public class ImageServiceImpl implements ImageService {
 
 
     @Override
-    public int saveImage(@RequestParam(value = "image") MultipartFile file)
+    public String saveImage(MultipartFile file)
             throws IOException {
-        int fileNumber = getMaxImageId() + 1;
-        String fileName = fileNumber + ".jpg";
+//        int fileNumber = getMaxImageId() + 1;
+//        String fileName = fileNumber + ".jpg";
+        String fileName = UUID.randomUUID().toString() + ".jpg";
         File dest = new File(imagePath + fileName);
         file.transferTo(dest);
-        imageMapper.insert(new Image(fileNumber, fileName));
-        return fileNumber;
+        imageMapper.insertSelective(new Image(null, fileName));
+        return fileName;
     }
 
     @Override

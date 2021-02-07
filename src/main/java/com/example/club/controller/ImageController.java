@@ -21,15 +21,15 @@ public class ImageController {
 
     @PostMapping(value = "/image")
     @ResponseBody
-    public ResultType<Object> upload(@RequestParam(value = "image") MultipartFile file) {
-        ResultType<Object> result = null;
+    public ResultType<Object> upload(@RequestParam(value = "img") MultipartFile file) {
+        ResultType<Object> result;
         if (file.isEmpty()) {
             result = new ResultType<>(-1, "上传失败，请重新选择文件", null);
         } else {
             try {
-                int ImageId = imageService.saveImage(file);
+                String fileName = imageService.saveImage(file);
                 logger.info("上传成功");
-                result = new ResultType<>(1, "上传成功", ImageId + ".jpg");
+                result = new ResultType<>(1, "上传成功", fileName);
             } catch (Exception e) {
                 logger.error(e.toString());
                 logger.info("上传失败");
@@ -41,13 +41,12 @@ public class ImageController {
 
     @GetMapping(value = "/image/{image-name}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public byte[] getPicture(@PathVariable("image-name") String imageName)
-            throws IOException {
+    public byte[] getPicture(@PathVariable("image-name") String imageName) {
         byte[] result = null;
         try {
             result = imageService.getImage(imageName);
         } catch (IOException e) {
-            logger.error("非法文件访问: "+ imageName);
+            logger.error("非法文件访问: " + imageName);
         }
         logger.info("访问图片: " + imageName);
         return result;
