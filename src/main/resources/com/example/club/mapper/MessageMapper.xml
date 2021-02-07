@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.club.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.example.club.model.Message">
+    <id column="message_id" jdbcType="INTEGER" property="messageId" />
+    <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
+    <result column="club_id" jdbcType="INTEGER" property="clubId" />
+    <result column="draft_mark" jdbcType="BIT" property="draftMark" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.club.model.MessageWithBLOBs">
+    <result column="title" jdbcType="LONGVARCHAR" property="title" />
+    <result column="contend" jdbcType="LONGVARCHAR" property="contend" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    message_id, release_time, club_id, draft_mark, type
+  </sql>
+  <sql id="Blob_Column_List">
+    title, contend
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.club.model.MessageWithBLOBs">
+    insert into message (message_id, release_time, club_id, 
+      draft_mark, type, title, 
+      contend)
+    values (#{messageId,jdbcType=INTEGER}, #{releaseTime,jdbcType=TIMESTAMP}, #{clubId,jdbcType=INTEGER}, 
+      #{draftMark,jdbcType=BIT}, #{type,jdbcType=INTEGER}, #{title,jdbcType=LONGVARCHAR}, 
+      #{contend,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.club.model.MessageWithBLOBs">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        message_id,
+      </if>
+      <if test="releaseTime != null">
+        release_time,
+      </if>
+      <if test="clubId != null">
+        club_id,
+      </if>
+      <if test="draftMark != null">
+        draft_mark,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="contend != null">
+        contend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageId != null">
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="releaseTime != null">
+        #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clubId != null">
+        #{clubId,jdbcType=INTEGER},
+      </if>
+      <if test="draftMark != null">
+        #{draftMark,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contend != null">
+        #{contend,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.club.model.MessageWithBLOBs">
+    update message
+    <set>
+      <if test="releaseTime != null">
+        release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clubId != null">
+        club_id = #{clubId,jdbcType=INTEGER},
+      </if>
+      <if test="draftMark != null">
+        draft_mark = #{draftMark,jdbcType=BIT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contend != null">
+        contend = #{contend,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.club.model.MessageWithBLOBs">
+    update message
+    set release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      club_id = #{clubId,jdbcType=INTEGER},
+      draft_mark = #{draftMark,jdbcType=BIT},
+      type = #{type,jdbcType=INTEGER},
+      title = #{title,jdbcType=LONGVARCHAR},
+      contend = #{contend,jdbcType=LONGVARCHAR}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.club.model.Message">
+    update message
+    set release_time = #{releaseTime,jdbcType=TIMESTAMP},
+      club_id = #{clubId,jdbcType=INTEGER},
+      draft_mark = #{draftMark,jdbcType=BIT},
+      type = #{type,jdbcType=INTEGER}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.club.mapper.ClubMapper">
+  <resultMap id="BaseResultMap" type="com.example.club.model.Club">
+    <id column="club_id" jdbcType="INTEGER" property="clubId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="avatar_id" jdbcType="INTEGER" property="avatarId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="consultant_name" jdbcType="VARCHAR" property="consultantName" />
+    <result column="consultant_tel" jdbcType="VARCHAR" property="consultantTel" />
+    <result column="initiator_id" jdbcType="INTEGER" property="initiatorId" />
+    <result column="progress" jdbcType="INTEGER" property="progress" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.club.model.ClubWithBLOBs">
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+    <result column="core_values" jdbcType="LONGVARCHAR" property="coreValues" />
+    <result column="plans" jdbcType="LONGVARCHAR" property="plans" />
+    <result column="practically_analysis" jdbcType="LONGVARCHAR" property="practicallyAnalysis" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    club_id, name, avatar_id, type, consultant_name, consultant_tel, initiator_id, progress
+  </sql>
+  <sql id="Blob_Column_List">
+    introduction, core_values, plans, practically_analysis
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from club
+    where club_id = #{clubId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from club
+    where club_id = #{clubId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.club.model.ClubWithBLOBs">
+    insert into club (club_id, name, avatar_id, 
+      type, consultant_name, consultant_tel, 
+      initiator_id, progress, introduction, 
+      core_values, plans, practically_analysis
+      )
+    values (#{clubId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{avatarId,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{consultantName,jdbcType=VARCHAR}, #{consultantTel,jdbcType=VARCHAR}, 
+      #{initiatorId,jdbcType=INTEGER}, #{progress,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}, 
+      #{coreValues,jdbcType=LONGVARCHAR}, #{plans,jdbcType=LONGVARCHAR}, #{practicallyAnalysis,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.club.model.ClubWithBLOBs">
+    insert into club
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clubId != null">
+        club_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="avatarId != null">
+        avatar_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="consultantName != null">
+        consultant_name,
+      </if>
+      <if test="consultantTel != null">
+        consultant_tel,
+      </if>
+      <if test="initiatorId != null">
+        initiator_id,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="coreValues != null">
+        core_values,
+      </if>
+      <if test="plans != null">
+        plans,
+      </if>
+      <if test="practicallyAnalysis != null">
+        practically_analysis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clubId != null">
+        #{clubId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarId != null">
+        #{avatarId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="consultantName != null">
+        #{consultantName,jdbcType=VARCHAR},
+      </if>
+      <if test="consultantTel != null">
+        #{consultantTel,jdbcType=VARCHAR},
+      </if>
+      <if test="initiatorId != null">
+        #{initiatorId,jdbcType=INTEGER},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coreValues != null">
+        #{coreValues,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="plans != null">
+        #{plans,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="practicallyAnalysis != null">
+        #{practicallyAnalysis,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.club.model.ClubWithBLOBs">
+    update club
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarId != null">
+        avatar_id = #{avatarId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="consultantName != null">
+        consultant_name = #{consultantName,jdbcType=VARCHAR},
+      </if>
+      <if test="consultantTel != null">
+        consultant_tel = #{consultantTel,jdbcType=VARCHAR},
+      </if>
+      <if test="initiatorId != null">
+        initiator_id = #{initiatorId,jdbcType=INTEGER},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coreValues != null">
+        core_values = #{coreValues,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="plans != null">
+        plans = #{plans,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="practicallyAnalysis != null">
+        practically_analysis = #{practicallyAnalysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where club_id = #{clubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.club.model.ClubWithBLOBs">
+    update club
+    set name = #{name,jdbcType=VARCHAR},
+      avatar_id = #{avatarId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      consultant_name = #{consultantName,jdbcType=VARCHAR},
+      consultant_tel = #{consultantTel,jdbcType=VARCHAR},
+      initiator_id = #{initiatorId,jdbcType=INTEGER},
+      progress = #{progress,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=LONGVARCHAR},
+      core_values = #{coreValues,jdbcType=LONGVARCHAR},
+      plans = #{plans,jdbcType=LONGVARCHAR},
+      practically_analysis = #{practicallyAnalysis,jdbcType=LONGVARCHAR}
+    where club_id = #{clubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.club.model.Club">
+    update club
+    set name = #{name,jdbcType=VARCHAR},
+      avatar_id = #{avatarId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      consultant_name = #{consultantName,jdbcType=VARCHAR},
+      consultant_tel = #{consultantTel,jdbcType=VARCHAR},
+      initiator_id = #{initiatorId,jdbcType=INTEGER},
+      progress = #{progress,jdbcType=INTEGER}
+    where club_id = #{clubId,jdbcType=INTEGER}
+  </update>
+</mapper>

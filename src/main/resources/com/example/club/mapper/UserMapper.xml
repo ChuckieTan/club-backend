@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.club.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.club.model.User">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="number" jdbcType="VARCHAR" property="number"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="realname" jdbcType="VARCHAR" property="realname"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="enrollment_date" jdbcType="TIMESTAMP" property="enrollmentDate"/>
+        <result column="graduation_date" jdbcType="TIMESTAMP" property="graduationDate"/>
+        <result column="avatar_id" jdbcType="INTEGER" property="avatarId"/>
+        <result column="profession" jdbcType="INTEGER" property="profession"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="qq" jdbcType="VARCHAR" property="qq"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.club.model.User">
+        <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id
+        , number, password, nickname, realname, sex, enrollment_date, graduation_date,
+    avatar_id, profession, email, tel, qq
+    </sql>
+    <sql id="Blob_Column_List">
+        introduction
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByNumber" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from user
+        where number = #{number}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.example.club.model.User">
+        insert into user (user_id, number, password,
+                          nickname, realname, sex,
+                          enrollment_date, graduation_date, avatar_id,
+                          profession, email, tel,
+                          qq, introduction)
+        values (#{userId,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{nickname,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+                #{enrollmentDate,jdbcType=TIMESTAMP}, #{graduationDate,jdbcType=TIMESTAMP},
+                #{avatarId,jdbcType=INTEGER},
+                #{profession,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
+                #{qq,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.example.club.model.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="enrollmentDate != null">
+                enrollment_date,
+            </if>
+            <if test="graduationDate != null">
+                graduation_date,
+            </if>
+            <if test="avatarId != null">
+                avatar_id,
+            </if>
+            <if test="profession != null">
+                profession,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="enrollmentDate != null">
+                #{enrollmentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="graduationDate != null">
+                #{graduationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="avatarId != null">
+                #{avatarId,jdbcType=INTEGER},
+            </if>
+            <if test="profession != null">
+                #{profession,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.club.model.User">
+        update user
+        <set>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="enrollmentDate != null">
+                enrollment_date = #{enrollmentDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="graduationDate != null">
+                graduation_date = #{graduationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="avatarId != null">
+                avatar_id = #{avatarId,jdbcType=INTEGER},
+            </if>
+            <if test="profession != null">
+                profession = #{profession,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.club.model.User">
+        update user
+        set number          = #{number,jdbcType=VARCHAR},
+            password        = #{password,jdbcType=VARCHAR},
+            nickname        = #{nickname,jdbcType=VARCHAR},
+            realname        = #{realname,jdbcType=VARCHAR},
+            sex             = #{sex,jdbcType=CHAR},
+            enrollment_date = #{enrollmentDate,jdbcType=TIMESTAMP},
+            graduation_date = #{graduationDate,jdbcType=TIMESTAMP},
+            avatar_id       = #{avatarId,jdbcType=INTEGER},
+            profession      = #{profession,jdbcType=INTEGER},
+            email           = #{email,jdbcType=VARCHAR},
+            tel             = #{tel,jdbcType=VARCHAR},
+            qq              = #{qq,jdbcType=VARCHAR},
+            introduction    = #{introduction,jdbcType=LONGVARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.club.model.User">
+        update user
+        set number          = #{number,jdbcType=VARCHAR},
+            password        = #{password,jdbcType=VARCHAR},
+            nickname        = #{nickname,jdbcType=VARCHAR},
+            realname        = #{realname,jdbcType=VARCHAR},
+            sex             = #{sex,jdbcType=CHAR},
+            enrollment_date = #{enrollmentDate,jdbcType=TIMESTAMP},
+            graduation_date = #{graduationDate,jdbcType=TIMESTAMP},
+            avatar_id       = #{avatarId,jdbcType=INTEGER},
+            profession      = #{profession,jdbcType=INTEGER},
+            email           = #{email,jdbcType=VARCHAR},
+            tel             = #{tel,jdbcType=VARCHAR},
+            qq              = #{qq,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+</mapper>
