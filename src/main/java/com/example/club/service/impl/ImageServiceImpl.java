@@ -5,6 +5,7 @@ import com.example.club.model.Image;
 import com.example.club.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,67 +24,42 @@ public class ImageServiceImpl implements ImageService {
     @Resource
     ImageMapper imageMapper;
 
-    static String imagePath;
+    public static String imagePath;
+
+    @Value("${web.upload-path}")
+    public void setImagePath(String imagePath) {
+        ImageServiceImpl.imagePath = imagePath;
+    }
+
+    static boolean isInit = false;
 
     static Logger logger = LoggerFactory.getLogger(ImageServiceImpl.class);
 
-    static {
-        try {
-            imagePath = getRealPath() + "images/";
-
+    public static void init() {
+        if(!isInit) {
+            System.out.println("图片路径" + imagePath);
             File folder = new File(imagePath);
             if (!folder.exists() && !folder.isDirectory()) {
-                if(folder.mkdirs()) {
+                if (folder.mkdirs()) {
                     logger.info("创建图片目录: " + imagePath);
                 } else {
                     logger.error("无法创建图片目录: " + imagePath);
                 }
             }
-        } catch (UnsupportedEncodingException e) {
-            logger.error("获取项目路径出错");
+            isInit = true;
         }
-
     }
 
     @Override
     public int getMaxImageId() {
+        init();
         return imageMapper.selectMaxPrimaryKey();
     }
-
-    public static String getRealPath() throws UnsupportedEncodingException {
-        String path = ImageServiceImpl.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-        path = java.net.URLDecoder.decode(path, StandardCharsets.UTF_8);
-        if (path.contains(".jar")) {
-            // 去除file:/和最后的/
-            int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
-            int lastIndex = path.lastIndexOf(".jar") + 1;
-            path = path.substring(firstIndex, lastIndex);
-
-            // 去除最后的路径
-            lastIndex = path.lastIndexOf(File.separator) + 1;
-            firstIndex = 0;
-            path = path.substring(firstIndex, lastIndex);
-        } else {
-            // 去除开始的file
-            int firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1;
-            int lastIndex = path.lastIndexOf(File.separator);
-            path = path.substring(firstIndex, lastIndex);
-
-            // 去除路径最后一级
-            firstIndex = 0;
-            lastIndex = path.lastIndexOf(File.separator) + 1;
-            path = path.substring(firstIndex, lastIndex);
-        }
-        logger.info("项目路径: " + path);
-        return path;
-    }
-
 
     @Override
     public String saveImage(MultipartFile file)
             throws IOException {
-//        int fileNumber = getMaxImageId() + 1;
-//        String fileName = fileNumber + ".jpg";
+        init();
         String fileName = UUID.randomUUID().toString() + ".jpg";
         File dest = new File(imagePath + fileName);
         file.transferTo(dest);
@@ -93,6 +69,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public byte[] getImage(String imageName) throws IOException {
+        init();
         File file = new File(imagePath + imageName);
         FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];

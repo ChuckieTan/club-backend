@@ -33,7 +33,7 @@ public class ImageController {
             } catch (Exception e) {
                 logger.error(e.toString());
                 logger.info("上传失败");
-                result = new ResultType<>(1, "上传失败", null);
+                result = new ResultType<>(-1, "上传失败", null);
             }
         }
         return result;

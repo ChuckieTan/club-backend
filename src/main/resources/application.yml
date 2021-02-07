@@ -12,8 +12,8 @@ spring:
       max-request-size: 10MB
 
 web:
-#  upload-path: /home/chuckie/Pictures/
-  upload-path: D:\images
+  upload-path: /home/chuckie/Pictures/
+#  upload-path: D:/images/
 
 server:
   servlet:
