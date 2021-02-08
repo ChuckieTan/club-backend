@@ -18,3 +18,5 @@ web:
 server:
   servlet:
     context-path: /api
+
+log4j

@@ -18,7 +18,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
         httpServletResponse.setStatus(200);
         httpServletResponse.setContentType("application/json;charset=utf-8");
 
-        ResultType<Object> result = new ResultType<>(-1, "unauthorized access", null);
+        ResultType result = new ResultType(-1, "未授权访问", null);
         String json = mapper.writeValueAsString(result);
         PrintWriter out = httpServletResponse.getWriter();
         out.println(json);

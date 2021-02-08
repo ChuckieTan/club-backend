@@ -1,14 +1,14 @@
 package com.example.club.util;
 
-public class ResultType<T> {
+public class ResultType {
     private int code;
     private String msg;
-    private T data;
+    private Object data;
 
     public ResultType() {
     }
 
-    public ResultType(int code, String msg, T data) {
+    public ResultType(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -30,11 +30,11 @@ public class ResultType<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

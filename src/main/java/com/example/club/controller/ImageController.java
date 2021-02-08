@@ -21,19 +21,19 @@ public class ImageController {
 
     @PostMapping(value = "/image")
     @ResponseBody
-    public ResultType<Object> upload(@RequestParam(value = "img") MultipartFile file) {
-        ResultType<Object> result;
+    public ResultType upload(@RequestParam(value = "img") MultipartFile file) {
+        ResultType result;
         if (file.isEmpty()) {
-            result = new ResultType<>(-1, "上传失败，请重新选择文件", null);
+            result = new ResultType(-1, "上传失败，请重新选择文件", null);
         } else {
             try {
                 String fileName = imageService.saveImage(file);
                 logger.info("上传成功");
-                result = new ResultType<>(1, "上传成功", fileName);
+                result = new ResultType(1, "上传成功", fileName);
             } catch (Exception e) {
                 logger.error(e.toString());
                 logger.info("上传失败");
-                result = new ResultType<>(-1, "上传失败", null);
+                result = new ResultType(-1, "上传失败", null);
             }
         }
         return result;
