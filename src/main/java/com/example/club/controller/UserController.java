@@ -2,7 +2,7 @@ package com.example.club.controller;
 
 import com.example.club.model.User;
 import com.example.club.service.UserService;
-import com.example.club.util.ResultType;
+import com.example.club.util.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -14,48 +14,48 @@ public class UserController {
     UserService userService;
 
     @GetMapping(value = "/user/{user-id}/info")
-    public ResultType queryInfo(@PathVariable("user-id") Integer userId) {
+    public Result queryInfo(@PathVariable("user-id") Integer userId) {
         User user = userService.queryInfoById(userId);
-        ResultType result = null;
+        Result result = null;
         if (user != null) {
-            result = new ResultType(1, "查询成功", user);
+            result = new Result(1, "查询成功", user);
         } else {
-            result = new ResultType(-1, "用户不存在", null);
+            result = new Result(-1, "用户不存在", null);
         }
         return result;
     }
 
     @PutMapping(value = "/user/{user-id}/info")
-    public ResultType changeInfo(@RequestBody User user,
-                                         @PathVariable("user-id") Integer id) {
-        ResultType result = null;
+    public Result changeInfo(@RequestBody User user,
+                             @PathVariable("user-id") Integer id) {
+        Result result = null;
         User dbUser = userService.queryInfoById(id);
         if (user.getUserId() != null || !Objects.equals(user.getUserId(), id)) {
-            result = new ResultType(-1, "无法修改id", null);
+            result = new Result(-1, "无法修改id", null);
         } else if (user.getNumber() != null ||
                 !Objects.equals(dbUser.getNumber(), user.getNumber())) {
-            result = new ResultType(-1, "无法修改学号", null);
+            result = new Result(-1, "无法修改学号", null);
         } else {
             user.setUserId(id);
             int row = userService.changeInfoById(user);
-            if(row != 1) {
-                result = new ResultType(-1, "未知错误", null);
+            if (row != 1) {
+                result = new Result(-1, "未知错误", null);
             } else {
-                result = new ResultType(1, "修改信息成功", null);
+                result = new Result(1, "修改信息成功", null);
             }
         }
         return result;
     }
 
     @PostMapping(value = "/register")
-    public ResultType register(@RequestBody User user) {
-        ResultType result;
+    public Result register(@RequestBody User user) {
+        Result result;
         System.out.println(user);
         if (userService.queryInfoByNumber(user.getNumber()) == null) {
             userService.insert(user);
-            result = new ResultType(1, "register success", null);
+            result = new Result(1, "register success", null);
         } else {
-            result = new ResultType(-1, "number already exists", null);
+            result = new Result(-1, "number already exists", null);
         }
         return result;
     }

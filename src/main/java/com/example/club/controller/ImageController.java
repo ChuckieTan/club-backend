@@ -1,7 +1,7 @@
 package com.example.club.controller;
 
 import com.example.club.service.ImageService;
-import com.example.club.util.ResultType;
+import com.example.club.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -21,19 +21,19 @@ public class ImageController {
 
     @PostMapping(value = "/image")
     @ResponseBody
-    public ResultType upload(@RequestParam(value = "img") MultipartFile file) {
-        ResultType result;
+    public Result upload(@RequestParam(value = "img") MultipartFile file) {
+        Result result;
         if (file.isEmpty()) {
-            result = new ResultType(-1, "上传失败，请重新选择文件", null);
+            result = new Result(-1, "上传失败，请重新选择文件", null);
         } else {
             try {
                 String fileName = imageService.saveImage(file);
                 logger.info("上传成功");
-                result = new ResultType(1, "上传成功", fileName);
+                result = new Result(1, "上传成功", fileName);
             } catch (Exception e) {
                 logger.error(e.toString());
                 logger.info("上传失败");
-                result = new ResultType(-1, "上传失败", null);
+                result = new Result(-1, "上传失败", null);
             }
         }
         return result;

@@ -40,4 +40,14 @@ public class ClubWithBLOBs extends Club {
     public void setPracticallyAnalysis(String practicallyAnalysis) {
         this.practicallyAnalysis = practicallyAnalysis == null ? null : practicallyAnalysis.trim();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", " + "ClubWithBLOBs{" +
+                "introduction='" + introduction + '\'' +
+                ", coreValues='" + coreValues + '\'' +
+                ", plans='" + plans + '\'' +
+                ", practicallyAnalysis='" + practicallyAnalysis + '\'' +
+                '}';
+    }
 }

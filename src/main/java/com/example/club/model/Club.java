@@ -80,4 +80,18 @@ public class Club {
     public void setProgress(Integer progress) {
         this.progress = progress;
     }
+
+    @Override
+    public String toString() {
+        return "Club{" +
+                "clubId=" + clubId +
+                ", name='" + name + '\'' +
+                ", avatarId=" + avatarId +
+                ", type=" + type +
+                ", consultantName='" + consultantName + '\'' +
+                ", consultantTel='" + consultantTel + '\'' +
+                ", initiatorId=" + initiatorId +
+                ", progress=" + progress +
+                '}';
+    }
 }

@@ -47,7 +47,8 @@
       #{coreValues,jdbcType=LONGVARCHAR}, #{plans,jdbcType=LONGVARCHAR}, #{practicallyAnalysis,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.club.model.ClubWithBLOBs">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="clubId"
+          parameterType="com.example.club.model.ClubWithBLOBs">
     insert into club
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="clubId != null">
