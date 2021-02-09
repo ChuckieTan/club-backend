@@ -1,71 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.club.mapper.ClubMemberMapper">
-  <resultMap id="BaseResultMap" type="com.example.club.model.ClubMember">
-    <id column="club_id" jdbcType="INTEGER" property="clubId" />
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="role" jdbcType="INTEGER" property="role" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    club_id, user_id, role
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.example.club.model.ClubMemberKey" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from club_member
-    where club_id = #{clubId,jdbcType=INTEGER}
-      and user_id = #{userId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.example.club.model.ClubMemberKey">
-    delete from club_member
-    where club_id = #{clubId,jdbcType=INTEGER}
-      and user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.example.club.model.ClubMember">
-    insert into club_member (club_id, user_id, role
-      )
-    values (#{clubId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.example.club.model.ClubMember">
-    insert into club_member
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="clubId != null">
-        club_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="role != null">
-        role,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="clubId != null">
-        #{clubId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="role != null">
-        #{role,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.club.model.ClubMember">
-    update club_member
-    <set>
-      <if test="role != null">
-        role = #{role,jdbcType=INTEGER},
-      </if>
-    </set>
-    where club_id = #{clubId,jdbcType=INTEGER}
-      and user_id = #{userId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.club.model.ClubMember">
-    update club_member
-    set role = #{role,jdbcType=INTEGER}
-    where club_id = #{clubId,jdbcType=INTEGER}
-      and user_id = #{userId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.example.club.model.ClubMember">
+        <id column="club_id" jdbcType="INTEGER" property="clubId"/>
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="role" jdbcType="INTEGER" property="role"/>
+        <result column="is_agree" jdbcType="BIT" property="isAgree"/>
+        <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime"/>
+        <result column="grade" jdbcType="INTEGER" property="grade"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.club.model.ClubMember">
+        <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        club_id
+        , user_id, role, is_agree, apply_time, grade
+    </sql>
+    <sql id="Blob_Column_List">
+        introduction
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="com.example.club.model.ClubMemberKey" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from club_member
+        where club_id = #{clubId,jdbcType=INTEGER}
+        and user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.example.club.model.ClubMemberKey">
+        delete
+        from club_member
+        where club_id = #{clubId,jdbcType=INTEGER}
+          and user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.example.club.model.ClubMember">
+        insert into club_member (club_id, user_id, role,
+                                 is_agree, apply_time, grade,
+                                 introduction)
+        values (#{clubId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{role,jdbcType=INTEGER},
+                #{isAgree,jdbcType=BIT}, #{applyTime,jdbcType=TIMESTAMP}, #{grade,jdbcType=INTEGER},
+                #{introduction,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.example.club.model.ClubMember">
+        insert into club_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clubId != null">
+                club_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="isAgree != null">
+                is_agree,
+            </if>
+            <if test="applyTime != null">
+                apply_time,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clubId != null">
+                #{clubId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=INTEGER},
+            </if>
+            <if test="isAgree != null">
+                #{isAgree,jdbcType=BIT},
+            </if>
+            <if test="applyTime != null">
+                #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.club.model.ClubMember">
+        update club_member
+        <set>
+            <if test="role != null">
+                role = #{role,jdbcType=INTEGER},
+            </if>
+            <if test="isAgree != null">
+                is_agree = #{isAgree,jdbcType=BIT},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="grade != null">
+                grade = #{grade,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where club_id = #{clubId,jdbcType=INTEGER}
+        and user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.club.model.ClubMember">
+        update club_member
+        set role         = #{role,jdbcType=INTEGER},
+            is_agree     = #{isAgree,jdbcType=BIT},
+            apply_time   = #{applyTime,jdbcType=TIMESTAMP},
+            grade        = #{grade,jdbcType=INTEGER},
+            introduction = #{introduction,jdbcType=LONGVARCHAR}
+        where club_id = #{clubId,jdbcType=INTEGER}
+          and user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.club.model.ClubMember">
+        update club_member
+        set role       = #{role,jdbcType=INTEGER},
+            is_agree   = #{isAgree,jdbcType=BIT},
+            apply_time = #{applyTime,jdbcType=TIMESTAMP},
+            grade      = #{grade,jdbcType=INTEGER}
+        where club_id = #{clubId,jdbcType=INTEGER}
+          and user_id = #{userId,jdbcType=INTEGER}
+    </update>
 </mapper>

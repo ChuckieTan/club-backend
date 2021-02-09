@@ -14,5 +14,7 @@ public interface ClubMemberMapper {
 
     int updateByPrimaryKeySelective(ClubMember record);
 
+    int updateByPrimaryKeyWithBLOBs(ClubMember record);
+
     int updateByPrimaryKey(ClubMember record);
 }
