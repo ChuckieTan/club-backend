@@ -47,13 +47,13 @@
         <!--               enableSelectByExample="false"-->
         <!--               selectByExampleQueryId="false"-->
         <!--        />-->
-        <table tableName="club_member" domainObjectName="ClubMember"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"
-        />
+        <!--        <table tableName="club_member" domainObjectName="ClubMember"-->
+        <!--               enableCountByExample="false"-->
+        <!--               enableUpdateByExample="false"-->
+        <!--               enableDeleteByExample="false"-->
+        <!--               enableSelectByExample="false"-->
+        <!--               selectByExampleQueryId="false"-->
+        <!--        />-->
         <!--        <table tableName="login_data" domainObjectName="LoginData"-->
         <!--               enableCountByExample="false"-->
         <!--               enableUpdateByExample="false"-->
@@ -61,14 +61,14 @@
         <!--               enableSelectByExample="false"-->
         <!--               selectByExampleQueryId="false"-->
         <!--        />-->
-        <!--        <table tableName="message" domainObjectName="Message"-->
-        <!--               enableCountByExample="false"-->
-        <!--               enableUpdateByExample="false"-->
-        <!--               enableDeleteByExample="false"-->
-        <!--               enableSelectByExample="false"-->
-        <!--               selectByExampleQueryId="false"-->
-        <!--        />-->
-        <!--        <table tableName="message_read" domainObjectName="MessageRead"-->
+        <table tableName="message" domainObjectName="Message"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        />
+        <!--        <table tableName="message_read" domainObjectName="MessageReadService"-->
         <!--               enableCountByExample="false"-->
         <!--               enableUpdateByExample="false"-->
         <!--               enableDeleteByExample="false"-->
