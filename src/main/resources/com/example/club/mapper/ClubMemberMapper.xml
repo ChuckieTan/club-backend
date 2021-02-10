@@ -28,6 +28,14 @@
         where club_id = #{clubId,jdbcType=INTEGER}
         and user_id = #{userId,jdbcType=INTEGER}
     </select>
+    <select id="selectByClubId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from club_member
+        where club_id = #{clubId,jdbcType=INTEGER}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="com.example.club.model.ClubMemberKey">
         delete
         from club_member

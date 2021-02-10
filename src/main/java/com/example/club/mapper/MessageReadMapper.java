@@ -3,6 +3,8 @@ package com.example.club.mapper;
 import com.example.club.model.MessageRead;
 import com.example.club.model.MessageReadKey;
 
+import java.util.List;
+
 public interface MessageReadMapper {
     int deleteByPrimaryKey(MessageReadKey key);
 
@@ -12,7 +14,11 @@ public interface MessageReadMapper {
 
     MessageRead selectByPrimaryKey(MessageReadKey key);
 
+    List<MessageRead> selectByUserId(Integer userId);
+
     int updateByPrimaryKeySelective(MessageRead record);
 
     int updateByPrimaryKey(MessageRead record);
+
+    int deleteByMessageId(Integer messageId);
 }

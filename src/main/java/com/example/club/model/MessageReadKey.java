@@ -20,4 +20,9 @@ public class MessageReadKey {
     public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
+
+    public MessageReadKey(Integer userId, Integer messageId) {
+        this.userId = userId;
+        this.messageId = messageId;
+    }
 }

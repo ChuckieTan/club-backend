@@ -1,13 +1,13 @@
 package com.example.club.service;
 
-import com.example.club.model.MessageReturn;
+import com.example.club.model.MessageRead;
 
 import java.util.List;
 
 public interface MessageReadService {
-    void initMessage(Integer clubId, Integer messageId);
+    void initMessage(List<Integer> userIds, Integer messageId);
 
-    List<MessageReturn> getUserMessages(Integer userId);
+    List<MessageRead> getUserMessages(Integer userId);
 
     void deleteMessage(Integer messageId);
 }

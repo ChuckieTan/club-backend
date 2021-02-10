@@ -3,6 +3,8 @@ package com.example.club.mapper;
 import com.example.club.model.ClubMember;
 import com.example.club.model.ClubMemberKey;
 
+import java.util.List;
+
 public interface ClubMemberMapper {
     int deleteByPrimaryKey(ClubMemberKey key);
 
@@ -17,4 +19,6 @@ public interface ClubMemberMapper {
     int updateByPrimaryKeyWithBLOBs(ClubMember record);
 
     int updateByPrimaryKey(ClubMember record);
+
+    List<ClubMember> selectByClubId(Integer clubId);
 }

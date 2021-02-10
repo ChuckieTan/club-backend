@@ -20,7 +20,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public int updateMessage(MessageWithBLOBs message) {
-        return messageMapper.updateByPrimaryKeyWithBLOBs(message);
+        return messageMapper.updateByPrimaryKeySelective(message);
     }
 
     @Override

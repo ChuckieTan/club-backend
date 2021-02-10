@@ -12,4 +12,9 @@ public class MessageRead extends MessageReadKey {
     public void setReadTime(Date readTime) {
         this.readTime = readTime;
     }
+
+    public MessageRead(Integer userId, Integer messageId, Date readTime) {
+        super(userId, messageId);
+        this.readTime = readTime;
+    }
 }

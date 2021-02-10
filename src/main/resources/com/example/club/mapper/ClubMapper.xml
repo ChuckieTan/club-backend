@@ -32,7 +32,7 @@
     from club
     where club_id = #{clubId,jdbcType=INTEGER}
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs">
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List"/>
     ,

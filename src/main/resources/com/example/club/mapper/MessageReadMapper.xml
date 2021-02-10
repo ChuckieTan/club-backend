@@ -7,25 +7,31 @@
     <result column="read_time" jdbcType="TIMESTAMP" property="readTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, message_id, read_time
+    user_id
+    , message_id, read_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.example.club.model.MessageReadKey" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from message_read
     where user_id = #{userId,jdbcType=INTEGER}
-      and message_id = #{messageId,jdbcType=INTEGER}
+    and message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from message_read
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.example.club.model.MessageReadKey">
-    delete from message_read
+    delete
+    from message_read
     where user_id = #{userId,jdbcType=INTEGER}
       and message_id = #{messageId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.club.model.MessageRead">
-    insert into message_read (user_id, message_id, read_time
-      )
-    values (#{userId,jdbcType=INTEGER}, #{messageId,jdbcType=INTEGER}, #{readTime,jdbcType=TIMESTAMP}
-      )
+    insert into message_read (user_id, message_id, read_time)
+    values (#{userId,jdbcType=INTEGER}, #{messageId,jdbcType=INTEGER}, #{readTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.club.model.MessageRead">
     insert into message_read
@@ -60,7 +66,7 @@
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
-      and message_id = #{messageId,jdbcType=INTEGER}
+    and message_id = #{messageId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.club.model.MessageRead">
     update message_read
@@ -68,4 +74,9 @@
     where user_id = #{userId,jdbcType=INTEGER}
       and message_id = #{messageId,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByMessageId" parameterType="java.lang.Integer">
+    delete
+    from message_read
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
 </mapper>
