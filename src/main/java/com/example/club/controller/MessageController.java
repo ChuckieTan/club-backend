@@ -82,4 +82,19 @@ public class MessageController {
                 "查询成功",
                 messageReadService.getUserMessages(user.getUserId()));
     }
+
+    @DeleteMapping(value = "/message/{message-id}")
+    public Result deleteMessage(@PathVariable("message-id") Integer messageId) {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject == null) {
+            return new Result(-1, "未登录", null);
+        }
+        if (messageService.getMesssageById(messageId) == null) {
+            return new Result(-1, "消息不存在", null);
+        }
+        if (messageService.deleteMessage(messageId) != 1) {
+            return new Result(1, "未知错误", null);
+        }
+        return new Result(1, "删除成功", null);
+    }
 }

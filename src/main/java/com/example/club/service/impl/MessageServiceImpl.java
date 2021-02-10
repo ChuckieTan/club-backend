@@ -32,4 +32,9 @@ public class MessageServiceImpl implements MessageService {
     public List<MessageWithBLOBs> getClubMessages(Integer clubId) {
         return messageMapper.selectByClubId(clubId);
     }
+
+    @Override
+    public MessageWithBLOBs getMesssageById(Integer messageId) {
+        return messageMapper.selectByPrimaryKey(messageId);
+    }
 }
