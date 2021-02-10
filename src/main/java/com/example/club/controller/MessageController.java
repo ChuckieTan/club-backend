@@ -1,9 +1,11 @@
 package com.example.club.controller;
 
 import com.example.club.model.MessageWithBLOBs;
+import com.example.club.model.User;
 import com.example.club.service.ClubService;
 import com.example.club.service.MessageReadService;
 import com.example.club.service.MessageService;
+import com.example.club.service.UserService;
 import com.example.club.util.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -22,6 +24,9 @@ public class MessageController {
 
     @Resource
     ClubService clubService;
+
+    @Resource
+    UserService userService;
 
     @PostMapping(value = "/message")
     public Result postMessage(MessageWithBLOBs message) {
@@ -44,7 +49,6 @@ public class MessageController {
             messageReadService.initMessage(clubId, message.getMessageId());
             return new Result(1, "发布成功", message.getMessageId());
         }
-
     }
 
     @PutMapping(value = "/message/{message-id}")
@@ -70,6 +74,12 @@ public class MessageController {
         if (username == null) {
             return new Result(-1, "未登录", null);
         }
-        return new Result(1, "", null);
+        User user = userService.queryInfoByNumber(username);
+        if (user == null) {
+            return new Result(-1, "请重新登录", null);
+        }
+        return new Result(1,
+                "查询成功",
+                messageReadService.getUserMessages(user.getUserId()));
     }
 }
