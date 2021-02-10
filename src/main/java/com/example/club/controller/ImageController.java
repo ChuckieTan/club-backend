@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @Controller
 public class ImageController {
@@ -27,9 +26,9 @@ public class ImageController {
             result = new Result(-1, "上传失败，请重新选择文件", null);
         } else {
             try {
-                String fileName = imageService.saveImage(file);
+                int imageId = imageService.saveImage(file);
                 logger.info("上传成功");
-                result = new Result(1, "上传成功", fileName);
+                result = new Result(1, "上传成功", imageId);
             } catch (Exception e) {
                 logger.error(e.toString());
                 logger.info("上传失败");
@@ -39,16 +38,16 @@ public class ImageController {
         return result;
     }
 
-    @GetMapping(value = "/image/{image-name}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/image/{image-id}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public byte[] getPicture(@PathVariable("image-name") String imageName) {
+    public byte[] getImage(@PathVariable("image-id") Integer imageId) {
         byte[] result = null;
         try {
-            result = imageService.getImage(imageName);
-        } catch (IOException e) {
-            logger.error("非法文件访问: " + imageName);
+            result = imageService.getImage(imageId);
+        } catch (Exception e) {
+            logger.error("非法文件访问: " + imageId);
         }
-        logger.info("访问图片: " + imageName);
+        logger.info("访问图片: " + imageId);
         return result;
     }
 }

@@ -32,9 +32,9 @@ public class UserController {
                              @PathVariable("user-id") Integer id) {
         Result result = null;
         User dbUser = userService.queryInfoById(id);
-        if (user.getUserId() != null || !Objects.equals(user.getUserId(), id)) {
+        if (user.getUserId() != null && !Objects.equals(user.getUserId(), id)) {
             result = new Result(-1, "无法修改id", null);
-        } else if (user.getNumber() != null ||
+        } else if (user.getNumber() != null &&
                 !Objects.equals(dbUser.getNumber(), user.getNumber())) {
             result = new Result(-1, "无法修改学号", null);
         } else {
@@ -55,7 +55,7 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         String userNumber = (String) subject.getPrincipal();
         if (userNumber == null) {
-            result = new Result(-1, "没有已登录用户", null);
+            result = new Result(-1, "未登录", null);
         } else {
             result = new Result(1,
                     "查询成功",
@@ -87,6 +87,8 @@ public class UserController {
     public Result changeLoginInfo(@RequestBody User user) {
         Result result = null;
 
+        System.out.println(user);
+
         Subject subject = SecurityUtils.getSubject();
         String loggedUserNumber = (String) subject.getPrincipal();
         if (loggedUserNumber == null) {
@@ -96,10 +98,10 @@ public class UserController {
             if (dbUser == null) {
                 result = new Result(-1, "请重新登录", null);
             } else {
-                if (user.getUserId() != null ||
+                if (user.getUserId() != null &&
                         !Objects.equals(user.getUserId(), dbUser.getUserId())) {
                     result = new Result(-1, "无法修改id", null);
-                } else if (user.getNumber() != null ||
+                } else if (user.getNumber() != null &&
                         !Objects.equals(dbUser.getNumber(), user.getNumber())) {
                     result = new Result(-1, "无法修改学号", null);
                 } else {
@@ -120,12 +122,11 @@ public class UserController {
     @PostMapping(value = "/register")
     public Result register(@RequestBody User user) {
         Result result;
-        System.out.println(user);
         if (userService.queryInfoByNumber(user.getNumber()) == null) {
             userService.insert(user);
-            result = new Result(1, "register success", null);
+            result = new Result(1, "注册成功", user.getUserId());
         } else {
-            result = new Result(-1, "number already exists", null);
+            result = new Result(-1, "用户名已存在", null);
         }
         return result;
     }

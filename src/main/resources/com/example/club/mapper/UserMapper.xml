@@ -48,7 +48,7 @@
         from user
         where user_id = #{userId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="com.example.club.model.User">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId" parameterType="com.example.club.model.User">
         insert into user (user_id, number, password,
                           nickname, realname, sex,
                           enrollment_date, graduation_date, avatar_id,
@@ -61,7 +61,8 @@
                 #{profession,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
                 #{qq,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.example.club.model.User">
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="userId"
+            parameterType="com.example.club.model.User">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">

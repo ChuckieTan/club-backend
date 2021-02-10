@@ -7,15 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 @Service
@@ -57,23 +54,25 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public String saveImage(MultipartFile file)
+    public int saveImage(MultipartFile file)
             throws IOException {
         init();
         String fileName = UUID.randomUUID().toString() + ".jpg";
         File dest = new File(imagePath + fileName);
         file.transferTo(dest);
-        imageMapper.insertSelective(new Image(null, fileName));
-        return fileName;
+        Image dbImage = new Image(null, fileName);
+        imageMapper.insertSelective(dbImage);
+        return dbImage.getImageId();
     }
 
     @Override
-    public byte[] getImage(String imageName) throws IOException {
+    public byte[] getImage(int imageId) throws IOException {
         init();
+        String imageName = imageMapper.selectByPrimaryKey(imageId).getPath();
         File file = new File(imagePath + imageName);
         FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];
         int read = inputStream.read(bytes, 0, inputStream.available());
-        return new byte[0];
+        return bytes;
     }
 }
