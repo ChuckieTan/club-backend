@@ -3,6 +3,8 @@ package com.example.club.mapper;
 import com.example.club.model.Club;
 import com.example.club.model.ClubWithBLOBs;
 
+import java.util.List;
+
 public interface ClubMapper {
     int deleteByPrimaryKey(Integer clubId);
 
@@ -11,6 +13,8 @@ public interface ClubMapper {
     int insertSelective(ClubWithBLOBs record);
 
     ClubWithBLOBs selectByPrimaryKey(Integer clubId);
+
+    List<ClubWithBLOBs> selectAll();
 
     int updateByPrimaryKeySelective(ClubWithBLOBs record);
 

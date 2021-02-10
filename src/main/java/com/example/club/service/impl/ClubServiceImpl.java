@@ -17,8 +17,8 @@ public class ClubServiceImpl implements ClubService {
     private ClubMapper clubMapper;
 
     @Override
-    public List<Club> findClubs() {
-        return (List<Club>) clubMapper.selectByPrimaryKey(1);
+    public List<ClubWithBLOBs> findClubs() {
+        return clubMapper.selectAll();
     }
 
     @Override

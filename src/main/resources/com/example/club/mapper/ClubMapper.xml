@@ -21,26 +21,34 @@
     club_id, name, avatar_id, type, consultant_name, consultant_tel, initiator_id, progress
   </sql>
   <sql id="Blob_Column_List">
-    introduction, core_values, plans, practically_analysis
+    introduction
+    , core_values, plans, practically_analysis
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     ,
-    <include refid="Blob_Column_List" />
+    <include refid="Blob_Column_List"/>
     from club
     where club_id = #{clubId,jdbcType=INTEGER}
   </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from club
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from club
+    delete
+    from club
     where club_id = #{clubId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.club.model.ClubWithBLOBs">
-    insert into club (club_id, name, avatar_id, 
-      type, consultant_name, consultant_tel, 
-      initiator_id, progress, introduction, 
-      core_values, plans, practically_analysis
-      )
+    insert into club (club_id, name, avatar_id,
+                      type, consultant_name, consultant_tel,
+                      initiator_id, progress, introduction,
+                      core_values, plans, practically_analysis)
     values (#{clubId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{avatarId,jdbcType=INTEGER}, 
       #{type,jdbcType=INTEGER}, #{consultantName,jdbcType=VARCHAR}, #{consultantTel,jdbcType=VARCHAR}, 
       #{initiatorId,jdbcType=INTEGER}, #{progress,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}, 

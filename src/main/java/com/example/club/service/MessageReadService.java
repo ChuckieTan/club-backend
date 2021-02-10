@@ -8,4 +8,6 @@ public interface MessageReadService {
     void initMessage(Integer clubId, Integer messageId);
 
     List<MessageReturn> getUserMessages(Integer userId);
+
+    void deleteMessage(Integer messageId);
 }

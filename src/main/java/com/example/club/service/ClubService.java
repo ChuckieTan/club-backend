@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ClubService {
-    List<Club> findClubs();
+    List<ClubWithBLOBs> findClubs();
 
     Club findClubById(Integer id);
 

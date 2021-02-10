@@ -93,8 +93,17 @@ public class MessageController {
             return new Result(-1, "消息不存在", null);
         }
         if (messageService.deleteMessage(messageId) != 1) {
-            return new Result(1, "未知错误", null);
+            return new Result(-1, "未知错误", null);
         }
+        messageReadService.deleteMessage(messageId);
         return new Result(1, "删除成功", null);
+    }
+
+    @GetMapping(value = "/message/club/{club-id}")
+    public Result getClubMessages(@PathVariable("club-id") Integer clubId) {
+        if (clubService.findClubById(clubId) == null) {
+            return new Result(1, "社团不存在", null);
+        }
+        return new Result(1, "查询成功", messageService.getClubMessages(clubId));
     }
 }
