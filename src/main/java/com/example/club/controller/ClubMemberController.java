@@ -1,9 +1,12 @@
 package com.example.club.controller;
 
+import com.example.club.model.User;
 import com.example.club.service.ClubMemberService;
 import com.example.club.service.ClubService;
 import com.example.club.service.UserService;
 import com.example.club.util.Result;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +25,21 @@ public class ClubMemberController {
     ClubService clubService;
 
     @GetMapping(value = "/user/{user-id}/joined-club")
-    public Result getMyJoinedClub(@PathVariable("user-id") Integer userId) {
+    public Result getUserJoinedClub(@PathVariable("user-id") Integer userId) {
+        User user = userService.queryInfoById(userId);
+        if (user == null) {
+            return new Result(-1, "用户不存在", null);
+        }
+        return new Result(1, "查询成功", clubMemberService.getUserClubs(userId));
+    }
 
+    @GetMapping(value = "/user/joined-club")
+    public Result getMyJoinedClub() {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject == null) {
+            return new Result(-1, "未登录", null);
+        }
+        Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
+        return new Result(1, "查询成功", clubMemberService.getUserClubs(userId));
     }
 }

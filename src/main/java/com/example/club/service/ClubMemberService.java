@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ClubMemberService {
     List<ClubMember> getClubMembers(Integer clubId);
+
+    List<ClubMember> getUserClubs(Integer userId);
 }
