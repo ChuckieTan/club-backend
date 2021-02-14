@@ -37,6 +37,7 @@ public class ClubController {
         return result;
     }
 
+
     @PostMapping(value = "/club")
     public Result createClub(@RequestBody ClubWithBLOBs club) {
         club.setClubId(null);
@@ -66,33 +67,27 @@ public class ClubController {
         return result;
     }
 
-    @PutMapping(value = "/club/{club-id}")
+    @PutMapping(value = "/club/{club-id}/info")
     public Result changeClubInfo(@PathVariable("club-id") Integer clubId,
                                  @RequestBody ClubWithBLOBs club) {
-        club.setClubId(null);
-        club.setProgress(1);
-        Result result = null;
-        if (club.getName() == null) {
-            result = new Result(-1, "社团名称为空", null);
-        } else if (club.getInitiatorId() != null
-                && userService.queryInfoById(club.getInitiatorId()) == null) {
-            result = new Result(-1, "创始人id不正确", null);
-        } else {
-            try {
-                logger.info("创建社团: " + club);
-                if (clubService.createClub(club) != 1) {
-                    result = new Result(-1, "社团未创建", null);
-                    logger.info("社团未创建");
-                } else {
-                    result = new Result(1, "社团创建成功", club);
-                    logger.info("社团创建成功");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                result = new Result(-1, "社团未创建", null);
-                logger.error("社团未创建: " + club);
-            }
+        ClubWithBLOBs dbClub = clubService.findClubById(clubId);
+        if (club.getClubId() != null && !club.getClubId().equals(dbClub.getClubId())) {
+            return new Result(-1, "不能修改id", null);
         }
-        return result;
+        if (club.getName() != null && !club.getName().equals(dbClub.getName())) {
+            return new Result(-1, "不能修改名字", null);
+        }
+        if (club.getType() != null && !club.getType().equals(dbClub.getType())) {
+            return new Result(-1, "不能修改类型", null);
+        }
+        if (club.getInitiatorId() != null && !club.getInitiatorId().equals(dbClub.getInitiatorId())) {
+            return new Result(-1, "不能修改发起人", null);
+        }
+        if (club.getPracticallyAnalysis() != null && !club.getPracticallyAnalysis().equals(dbClub.getPracticallyAnalysis())) {
+            return new Result(-1, "不能修改可行性分析", null);
+        }
+
+        clubService.changeClubInfo(club);
+        return new Result(1, "修改成功", null);
     }
 }

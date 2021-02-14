@@ -1,7 +1,6 @@
 package com.example.club.service.impl;
 
 import com.example.club.mapper.ClubMapper;
-import com.example.club.model.Club;
 import com.example.club.model.ClubWithBLOBs;
 import com.example.club.service.ClubService;
 import org.springframework.stereotype.Service;
@@ -22,13 +21,18 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Club findClubById(Integer id) {
+    public ClubWithBLOBs findClubById(Integer id) {
         return clubMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int createClub(ClubWithBLOBs club) throws SQLException {
         return clubMapper.insertSelective(club);
+    }
+
+    @Override
+    public int changeClubInfo(ClubWithBLOBs club) {
+        return clubMapper.updateByPrimaryKeySelective(club);
     }
 
 }

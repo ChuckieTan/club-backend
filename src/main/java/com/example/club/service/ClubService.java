@@ -1,6 +1,5 @@
 package com.example.club.service;
 
-import com.example.club.model.Club;
 import com.example.club.model.ClubWithBLOBs;
 
 import java.sql.SQLException;
@@ -9,7 +8,9 @@ import java.util.List;
 public interface ClubService {
     List<ClubWithBLOBs> findClubs();
 
-    Club findClubById(Integer id);
+    ClubWithBLOBs findClubById(Integer id);
 
     int createClub(ClubWithBLOBs club) throws SQLException;
+
+    int changeClubInfo(ClubWithBLOBs club);
 }
