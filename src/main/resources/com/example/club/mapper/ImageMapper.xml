@@ -19,14 +19,16 @@
     from image_path
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from image_path
+    delete
+    from image_path
     where image_id = #{imageId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.club.model.Image">
     insert into image_path (image_id, path)
     values (#{imageId,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.club.model.Image">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="imageId"
+          parameterType="com.example.club.model.Image">
     insert into image_path
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="imageId != null">

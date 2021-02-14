@@ -62,6 +62,7 @@ public class ImageServiceImpl implements ImageService {
         file.transferTo(dest);
         Image dbImage = new Image(null, fileName);
         imageMapper.insertSelective(dbImage);
+        System.out.println(dbImage.getImageId());
         return dbImage.getImageId();
     }
 

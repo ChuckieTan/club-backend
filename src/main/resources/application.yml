@@ -12,7 +12,7 @@ spring:
       max-request-size: 10MB
 
 web:
-#  upload-path: /home/chuckie/Pictures/
+#  upload-path: /home/chuckie/Pictures/club
   upload-path: D:/images/
 
 server:

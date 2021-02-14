@@ -28,4 +28,12 @@ public class Image {
         this.imageId = imageId;
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "imageId=" + imageId +
+                ", path='" + path + '\'' +
+                '}';
+    }
 }
