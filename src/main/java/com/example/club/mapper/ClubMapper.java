@@ -23,4 +23,6 @@ public interface ClubMapper {
     int updateByPrimaryKey(Club record);
 
     List<ClubWithBLOBs> selectByInitiatorId(Integer initiatorId);
+
+    List<ClubWithBLOBs> selectByProgress(Integer progress);
 }

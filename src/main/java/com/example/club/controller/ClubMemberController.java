@@ -44,7 +44,7 @@ public class ClubMemberController {
     }
 
     @GetMapping(value = "/user/created-club")
-    public Result getMyClubs() {
+    public Result getMyCreatedClubs() {
         Subject subject = SecurityUtils.getSubject();
         if (subject == null) {
             return new Result(-1, "未登录", null);
@@ -59,5 +59,4 @@ public class ClubMemberController {
                 "查询成功",
                 clubService.getCreatedClubs(userId));
     }
-
 }

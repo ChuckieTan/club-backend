@@ -91,5 +91,9 @@ public class ClubController {
         return new Result(1, "修改成功", null);
     }
 
+    @GetMapping(value = "/club/apply")
+    public Result getApplyClubs() {
+        return new Result(1, "查询成功", clubService.getApplyClubs());
+    }
 
 }

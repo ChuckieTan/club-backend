@@ -40,4 +40,9 @@ public class ClubServiceImpl implements ClubService {
         return clubMapper.selectByInitiatorId(initiatorId);
     }
 
+    @Override
+    public List<ClubWithBLOBs> getApplyClubs() {
+        return clubMapper.selectByProgress(2);
+    }
+
 }
