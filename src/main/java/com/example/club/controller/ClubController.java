@@ -96,4 +96,19 @@ public class ClubController {
         return new Result(1, "查询成功", clubService.getApplyClubs());
     }
 
+    @PutMapping(value = "/club/apply/{club-id}")
+    public Result agreeApply(@PathVariable("club-id") Integer clubId) {
+        Club dbClub = clubService.findClubById(clubId);
+        if (dbClub == null) {
+            return new Result(-1, "社团不存在", null);
+        }
+        if (dbClub.getProgress() != 2) {
+            return new Result(-1, "申请进度错误", null);
+        }
+        ClubWithBLOBs newClub = new ClubWithBLOBs();
+        newClub.setProgress(4);
+        clubService.changeClubInfo(newClub);
+
+        return new Result(-1, "成功", null);
+    }
 }
