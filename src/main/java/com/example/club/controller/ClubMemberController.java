@@ -25,7 +25,7 @@ public class ClubMemberController {
     ClubService clubService;
 
     @GetMapping(value = "/user/{user-id}/joined-club")
-    public Result getUserJoinedClub(@PathVariable("user-id") Integer userId) {
+    public Result getUserJoinedClubs(@PathVariable("user-id") Integer userId) {
         User user = userService.queryInfoById(userId);
         if (user == null) {
             return new Result(-1, "用户不存在", null);
@@ -40,18 +40,24 @@ public class ClubMemberController {
             return new Result(-1, "未登录", null);
         }
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
-        return new Result(1, "查询成功", clubMemberService.getUserClubs(userId));
+        return getUserJoinedClubs(userId);
     }
 
-    @GetMapping(value = "/user/my-club")
+    @GetMapping(value = "/user/created-club")
     public Result getMyClubs() {
         Subject subject = SecurityUtils.getSubject();
         if (subject == null) {
             return new Result(-1, "未登录", null);
         }
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
+        return getUserCreatedClubs(userId);
+    }
+
+    @GetMapping(value = "/user/{user-id}/created-club")
+    public Result getUserCreatedClubs(@PathVariable("user-id") Integer userId) {
         return new Result(1,
                 "查询成功",
                 clubService.getCreatedClubs(userId));
     }
+
 }
