@@ -13,4 +13,6 @@ public interface ClubService {
     int createClub(ClubWithBLOBs club) throws SQLException;
 
     int changeClubInfo(ClubWithBLOBs club);
+
+    List<ClubWithBLOBs> getCreatedClubs(Integer initiatorId);
 }

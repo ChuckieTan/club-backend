@@ -32,6 +32,14 @@
     from club
     where club_id = #{clubId,jdbcType=INTEGER}
   </select>
+  <select id="selectByInitiatorId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from club
+    where initiator_id = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectAll" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List"/>

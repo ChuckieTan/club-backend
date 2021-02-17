@@ -35,4 +35,9 @@ public class ClubServiceImpl implements ClubService {
         return clubMapper.updateByPrimaryKeySelective(club);
     }
 
+    @Override
+    public List<ClubWithBLOBs> getCreatedClubs(Integer initiatorId) {
+        return clubMapper.selectByInitiatorId(initiatorId);
+    }
+
 }

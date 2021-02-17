@@ -34,12 +34,24 @@ public class ClubMemberController {
     }
 
     @GetMapping(value = "/user/joined-club")
-    public Result getMyJoinedClub() {
+    public Result getMyJoinedClubs() {
         Subject subject = SecurityUtils.getSubject();
         if (subject == null) {
             return new Result(-1, "未登录", null);
         }
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
         return new Result(1, "查询成功", clubMemberService.getUserClubs(userId));
+    }
+
+    @GetMapping(value = "/user/my-club")
+    public Result getMyClubs() {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject == null) {
+            return new Result(-1, "未登录", null);
+        }
+        Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
+        return new Result(1,
+                "查询成功",
+                clubService.getCreatedClubs(userId));
     }
 }
