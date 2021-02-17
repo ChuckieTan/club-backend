@@ -107,7 +107,7 @@ public class MessageController {
         return new Result(1, "删除成功", null);
     }
 
-    @GetMapping(value = "/message/club/{club-id}")
+    @GetMapping(value = "/club/{club-id}/message")
     public Result getClubMessages(@PathVariable("club-id") Integer clubId) {
         if (clubService.findClubById(clubId) == null) {
             return new Result(1, "社团不存在", null);
@@ -124,4 +124,19 @@ public class MessageController {
         return new Result(-1, "查询成功", message);
     }
 
+    @GetMapping(value = "/user/my-messages")
+    public Result getMyMessages() {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        if (username == null) {
+            return new Result(-1, "未登录", null);
+        }
+        User user = userService.queryInfoByNumber(username);
+        if (user == null) {
+            return new Result(-1, "请重新登录", null);
+        }
+        return new Result(1,
+                "查询成功",
+                messageService.getMessageByAuthor(user.getUserId()));
+    }
 }

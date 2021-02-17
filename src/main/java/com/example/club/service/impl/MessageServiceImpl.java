@@ -37,4 +37,9 @@ public class MessageServiceImpl implements MessageService {
     public MessageWithBLOBs getMesssageById(Integer messageId) {
         return messageMapper.selectByPrimaryKey(messageId);
     }
+
+    @Override
+    public List<MessageWithBLOBs> getMessageByAuthor(Integer userId) {
+        return messageMapper.selectByAuthorId(userId);
+    }
 }

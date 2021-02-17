@@ -14,4 +14,6 @@ public interface MessageService {
     List<MessageWithBLOBs> getClubMessages(Integer clubId);
 
     MessageWithBLOBs getMesssageById(Integer messageId);
+
+    List<MessageWithBLOBs> getMessageByAuthor(Integer userId);
 }

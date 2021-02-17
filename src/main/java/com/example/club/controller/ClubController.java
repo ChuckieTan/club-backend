@@ -90,4 +90,6 @@ public class ClubController {
         clubService.changeClubInfo(club);
         return new Result(1, "修改成功", null);
     }
+
+
 }
