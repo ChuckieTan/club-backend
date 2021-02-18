@@ -16,4 +16,6 @@ public interface ClubMemberService {
     int setUserRole(ClubMember clubMember);
 
     int deleteMember(Integer clubId, Integer userId);
+
+    ClubMember getClubMemberInfo(Integer clubId, Integer userId);
 }

@@ -43,4 +43,9 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     public int deleteMember(Integer clubId, Integer userId) {
         return clubMemberMapper.deleteByPrimaryKey(new ClubMemberKey(clubId, userId));
     }
+
+    @Override
+    public ClubMember getClubMemberInfo(Integer clubId, Integer userId) {
+        return clubMemberMapper.selectByPrimaryKey(new ClubMemberKey(clubId, userId));
+    }
 }

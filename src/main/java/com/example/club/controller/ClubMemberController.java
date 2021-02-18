@@ -36,7 +36,7 @@ public class ClubMemberController {
     @GetMapping(value = "/user/joined-club")
     public Result getMyJoinedClubs() {
         Subject subject = SecurityUtils.getSubject();
-        if (subject == null) {
+        if (subject.getPrincipal() == null) {
             return new Result(-1, "未登录", null);
         }
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
@@ -46,7 +46,7 @@ public class ClubMemberController {
     @GetMapping(value = "/user/created-club")
     public Result getMyCreatedClubs() {
         Subject subject = SecurityUtils.getSubject();
-        if (subject == null) {
+        if (subject.getPrincipal() == null) {
             return new Result(-1, "未登录", null);
         }
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
@@ -60,13 +60,14 @@ public class ClubMemberController {
                 clubService.getCreatedClubs(userId));
     }
 
-    @PostMapping(value = "/api/club/{club-id}/apply")
+    @PostMapping(value = "/club/{club-id}/apply")
     public Result applyJoinClub(@PathVariable("club-id") Integer clubId,
                                 @RequestBody ClubMember clubMember) {
         Subject subject = SecurityUtils.getSubject();
-        if (subject == null) {
+        if (subject.getPrincipal() == null) {
             return new Result(-1, "未登录", null);
         }
+        System.out.println((String) subject.getPrincipal());
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
         if (clubMember.getUserId() != null && !clubMember.getUserId().equals(userId)) {
             return new Result(-1, "user id 不正确", null);
@@ -80,6 +81,17 @@ public class ClubMemberController {
         }
         clubMemberService.newClubMember(clubMember);
         return new Result(1, "申请成功", null);
+    }
+
+    @GetMapping(value = "/club/{club-id}/user/{user-id}/info")
+    public Result getClubMemberInfo(@PathVariable("club-id") Integer clubId,
+                                    @PathVariable("user-id") Integer userId) {
+        ClubMember info = clubMemberService.getClubMemberInfo(clubId, userId);
+        if (info == null) {
+            return new Result(-1, "用户不在这个社团", null);
+        }
+        return new Result(1, "查存成功", info);
+
     }
 
     @GetMapping(value = "/club/{club-id}/apply")

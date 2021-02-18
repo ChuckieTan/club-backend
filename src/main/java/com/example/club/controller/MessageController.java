@@ -96,7 +96,7 @@ public class MessageController {
     @DeleteMapping(value = "/message/{message-id}")
     public Result deleteMessage(@PathVariable("message-id") Integer messageId) {
         Subject subject = SecurityUtils.getSubject();
-        if (subject == null) {
+        if (subject.getPrincipal() == null) {
             return new Result(-1, "未登录", null);
         }
         if (messageService.getMesssageById(messageId) == null) {
