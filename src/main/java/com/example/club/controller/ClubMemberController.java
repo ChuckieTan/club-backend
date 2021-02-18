@@ -93,11 +93,31 @@ public class ClubMemberController {
     public Result setMemberRole(@PathVariable("club-id") Integer clubId,
                                 @PathVariable("user-id") Integer userId,
                                 @RequestBody ClubMember clubMember) {
+
         clubMember.setClubId(clubId);
         clubMember.setUserId(userId);
 
-        clubMemberService.setUserRole(clubMember);
+        if (clubMemberService.setUserRole(clubMember) == 1) {
+            return new Result(1, "成功", null);
+        } else {
+            return new Result(-1, "用户不在社团里", null);
+        }
 
-        return new Result(1, "成功", null);
+    }
+
+    @GetMapping(value = "/club/{club-id}/member")
+    public Result getClubMembers(@PathVariable("club-id") Integer clubId) {
+        if (clubService.findClubById(clubId) == null) {
+            return new Result(-1, "社团不存在", null);
+        }
+        return new Result(1, "查询成功", clubMemberService.getClubMembers(clubId));
+    }
+
+    @DeleteMapping(value = "/club/{club-id}/user/{user-id}")
+    public Result deleteClubMember(@PathVariable("club-id") Integer clubId,
+                                   @PathVariable("user-id") Integer userId) {
+        return new Result(1,
+                "删除成功",
+                clubMemberService.deleteMember(clubId, userId));
     }
 }

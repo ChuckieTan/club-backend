@@ -2,6 +2,7 @@ package com.example.club.service.impl;
 
 import com.example.club.mapper.ClubMemberMapper;
 import com.example.club.model.ClubMember;
+import com.example.club.model.ClubMemberKey;
 import com.example.club.service.ClubMemberService;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,10 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     @Override
     public int setUserRole(ClubMember clubMember) {
         return clubMemberMapper.updateByPrimaryKeySelective(clubMember);
+    }
+
+    @Override
+    public int deleteMember(Integer clubId, Integer userId) {
+        return clubMemberMapper.deleteByPrimaryKey(new ClubMemberKey(clubId, userId));
     }
 }

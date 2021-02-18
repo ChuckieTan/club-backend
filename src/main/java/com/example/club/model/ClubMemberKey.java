@@ -20,4 +20,12 @@ public class ClubMemberKey {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    public ClubMemberKey() {
+    }
+
+    public ClubMemberKey(Integer clubId, Integer userId) {
+        this.clubId = clubId;
+        this.userId = userId;
+    }
 }
