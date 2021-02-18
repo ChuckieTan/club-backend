@@ -32,4 +32,9 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     public List<ClubMember> getApplyMembers(Integer clubId) {
         return clubMemberMapper.selectByClubAndRole(clubId, 3);
     }
+
+    @Override
+    public int setUserRole(ClubMember clubMember) {
+        return clubMemberMapper.updateByPrimaryKeySelective(clubMember);
+    }
 }

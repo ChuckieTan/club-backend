@@ -12,4 +12,6 @@ public interface ClubMemberService {
     int newClubMember(ClubMember clubMember);
 
     List<ClubMember> getApplyMembers(Integer clubId);
+
+    int setUserRole(ClubMember clubMember);
 }

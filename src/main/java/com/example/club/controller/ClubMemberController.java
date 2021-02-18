@@ -88,4 +88,16 @@ public class ClubMemberController {
                 "查询成功",
                 clubMemberService.getApplyMembers(clubId));
     }
+
+    @PutMapping(value = "/club/{club-id}/user/{user-id}/role")
+    public Result setMemberRole(@PathVariable("club-id") Integer clubId,
+                                @PathVariable("user-id") Integer userId,
+                                @RequestBody ClubMember clubMember) {
+        clubMember.setClubId(clubId);
+        clubMember.setUserId(userId);
+
+        clubMemberService.setUserRole(clubMember);
+
+        return new Result(1, "成功", null);
+    }
 }
