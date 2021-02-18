@@ -139,4 +139,19 @@ public class MessageController {
                 "查询成功",
                 messageService.getMessageByAuthor(user.getUserId()));
     }
+
+    @PutMapping(value = "/message/{message-id}/read")
+    public Result readMessage(@PathVariable("message-id") Integer messageId) {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        if (username == null) {
+            return new Result(-1, "未登录", null);
+        }
+        User user = userService.queryInfoByNumber(username);
+        if (user == null) {
+            return new Result(-1, "请重新登录", null);
+        }
+        messageReadService.readMessage(user.getUserId(), messageId);
+        return new Result(1, "成功", null);
+    }
 }

@@ -10,4 +10,6 @@ public interface MessageReadService {
     List<MessageRead> getUserMessages(Integer userId);
 
     void deleteMessage(Integer messageId);
+
+    int readMessage(Integer userId, Integer messageId);
 }
