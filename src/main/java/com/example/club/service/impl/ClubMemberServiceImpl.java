@@ -48,4 +48,9 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     public ClubMember getClubMemberInfo(Integer clubId, Integer userId) {
         return clubMemberMapper.selectByPrimaryKey(new ClubMemberKey(clubId, userId));
     }
+
+    @Override
+    public int changeClubMemberInfo(ClubMember clubMember) {
+        return clubMemberMapper.updateByPrimaryKeySelective(clubMember);
+    }
 }

@@ -91,7 +91,19 @@ public class ClubMemberController {
             return new Result(-1, "用户不在这个社团", null);
         }
         return new Result(1, "查存成功", info);
+    }
 
+    @PutMapping(value = "/club/{club-id}/user/{user-id}/info")
+    public Result changeClubMemberInfo(@PathVariable("club-id") Integer clubId,
+                                       @PathVariable("user-id") Integer userId,
+                                       @RequestBody ClubMember clubMember) {
+        clubMember.setClubId(clubId);
+        clubMember.setUserId(userId);
+
+        if (clubMemberService.changeClubMemberInfo(clubMember) != 1) {
+            return new Result(-1, "未找到该成员", null);
+        }
+        return new Result(1, "修改成功", null);
     }
 
     @GetMapping(value = "/club/{club-id}/apply")

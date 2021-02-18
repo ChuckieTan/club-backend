@@ -18,4 +18,6 @@ public interface ClubMemberService {
     int deleteMember(Integer clubId, Integer userId);
 
     ClubMember getClubMemberInfo(Integer clubId, Integer userId);
+
+    int changeClubMemberInfo(ClubMember clubMember);
 }
