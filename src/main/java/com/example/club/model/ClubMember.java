@@ -52,4 +52,19 @@ public class ClubMember extends ClubMemberKey {
     public void setIntroduction(String introduction) {
         this.introduction = introduction == null ? null : introduction.trim();
     }
+
+    public ClubMember() {
+    }
+
+    public ClubMember(Integer role,
+                      Boolean isAgree,
+                      Date applyTime,
+                      Integer grade,
+                      String introduction) {
+        this.role = role;
+        this.isAgree = isAgree;
+        this.applyTime = applyTime;
+        this.grade = grade;
+        this.introduction = introduction;
+    }
 }

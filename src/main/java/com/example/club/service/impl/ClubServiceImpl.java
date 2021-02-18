@@ -42,7 +42,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public List<ClubWithBLOBs> getApplyClubs() {
-        return clubMapper.selectByProgress(2);
+        return clubMapper.selectByProgress(1);
     }
 
 }
