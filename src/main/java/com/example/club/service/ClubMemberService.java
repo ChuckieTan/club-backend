@@ -10,4 +10,6 @@ public interface ClubMemberService {
     List<ClubMember> getUserClubs(Integer userId);
 
     int newClubMember(ClubMember clubMember);
+
+    List<ClubMember> getApplyMembers(Integer clubId);
 }

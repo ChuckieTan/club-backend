@@ -23,4 +23,6 @@ public interface ClubMemberMapper {
     List<ClubMember> selectByClubId(Integer clubId);
 
     List<ClubMember> selectByUserId(Integer userId);
+
+    List<ClubMember> selectByClubAndRole(Integer clubId, Integer role);
 }

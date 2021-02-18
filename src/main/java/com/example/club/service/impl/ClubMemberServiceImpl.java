@@ -27,4 +27,9 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     public int newClubMember(ClubMember clubMember) {
         return clubMemberMapper.insertSelective(clubMember);
     }
+
+    @Override
+    public List<ClubMember> getApplyMembers(Integer clubId) {
+        return clubMemberMapper.selectByClubAndRole(clubId, 3);
+    }
 }

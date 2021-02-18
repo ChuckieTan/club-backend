@@ -82,4 +82,10 @@ public class ClubMemberController {
         return new Result(1, "申请成功", null);
     }
 
+    @GetMapping(value = "/club/{club-id}/apply")
+    public Result getClubApplyUsers(@PathVariable("club-id") Integer clubId) {
+        return new Result(1,
+                "查询成功",
+                clubMemberService.getApplyMembers(clubId));
+    }
 }
