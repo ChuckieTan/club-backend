@@ -154,4 +154,5 @@ public class MessageController {
         messageReadService.readMessage(user.getUserId(), messageId);
         return new Result(1, "成功", null);
     }
+
 }
