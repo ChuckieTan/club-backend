@@ -1,7 +1,9 @@
 package com.example.club.controller;
 
 import com.example.club.model.Club;
+import com.example.club.model.ClubMember;
 import com.example.club.model.ClubWithBLOBs;
+import com.example.club.service.ClubMemberService;
 import com.example.club.service.ClubService;
 import com.example.club.service.UserService;
 import com.example.club.util.Result;
@@ -10,11 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @RestController
 public class ClubController {
     @Resource
     ClubService clubService;
+
+    @Resource
+    ClubMemberService clubMemberService;
 
     public static Logger logger = LoggerFactory.getLogger(ClubController.class);
     @Resource
@@ -41,6 +47,7 @@ public class ClubController {
     @PostMapping(value = "/club")
     public Result createClub(@RequestBody ClubWithBLOBs club) {
         club.setClubId(null);
+        club.setApplyTime(new Date());
         Result result = null;
         if (club.getName() == null) {
             result = new Result(-1, "社团名称为空", null);
@@ -54,6 +61,11 @@ public class ClubController {
                     result = new Result(-1, "社团未创建", null);
                     logger.info("社团未创建");
                 } else {
+                    ClubMember clubMember = new ClubMember(0, true, new Date(), null, null);
+                    clubMember.setClubId(club.getClubId());
+                    clubMember.setUserId(club.getInitiatorId());
+                    clubMemberService.newClubMember(clubMember);
+
                     result = new Result(1, "社团创建成功", club);
                     logger.info("社团创建成功");
                 }

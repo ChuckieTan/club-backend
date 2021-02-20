@@ -10,6 +10,7 @@
     <result column="consultant_tel" jdbcType="VARCHAR" property="consultantTel" />
     <result column="initiator_id" jdbcType="INTEGER" property="initiatorId" />
     <result column="progress" jdbcType="INTEGER" property="progress" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime"/>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.club.model.ClubWithBLOBs">
     <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
@@ -18,7 +19,8 @@
     <result column="practically_analysis" jdbcType="LONGVARCHAR" property="practicallyAnalysis" />
   </resultMap>
   <sql id="Base_Column_List">
-    club_id, name, avatar_id, type, consultant_name, consultant_tel, initiator_id, progress
+    club_id
+    , name, avatar_id, type, consultant_name, consultant_tel, initiator_id, progress, apply_time
   </sql>
   <sql id="Blob_Column_List">
     introduction
@@ -63,13 +65,13 @@
   <insert id="insert" parameterType="com.example.club.model.ClubWithBLOBs">
     insert into club (club_id, name, avatar_id,
                       type, consultant_name, consultant_tel,
-                      initiator_id, progress, introduction,
+                      initiator_id, progress, apply_time, introduction,
                       core_values, plans, practically_analysis)
-    values (#{clubId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{avatarId,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{consultantName,jdbcType=VARCHAR}, #{consultantTel,jdbcType=VARCHAR}, 
-      #{initiatorId,jdbcType=INTEGER}, #{progress,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}, 
-      #{coreValues,jdbcType=LONGVARCHAR}, #{plans,jdbcType=LONGVARCHAR}, #{practicallyAnalysis,jdbcType=LONGVARCHAR}
-      )
+    values (#{clubId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{avatarId,jdbcType=INTEGER},
+            #{type,jdbcType=INTEGER}, #{consultantName,jdbcType=VARCHAR}, #{consultantTel,jdbcType=VARCHAR},
+            #{initiatorId,jdbcType=INTEGER}, #{progress,jdbcType=INTEGER}, #{applyTime,jdbcType=TIMESTAMP},
+            #{introduction,jdbcType=LONGVARCHAR}, #{coreValues,jdbcType=LONGVARCHAR}, #{plans,jdbcType=LONGVARCHAR},
+            #{practicallyAnalysis,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="clubId"
           parameterType="com.example.club.model.ClubWithBLOBs">
@@ -98,6 +100,9 @@
       </if>
       <if test="progress != null">
         progress,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
       </if>
       <if test="introduction != null">
         introduction,
@@ -137,6 +142,9 @@
       <if test="progress != null">
         #{progress,jdbcType=INTEGER},
       </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="introduction != null">
         #{introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -175,6 +183,9 @@
       <if test="progress != null">
         progress = #{progress,jdbcType=INTEGER},
       </if>
+      <if test="applyTime != null">
+        progress = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="introduction != null">
         introduction = #{introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -192,28 +203,30 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.club.model.ClubWithBLOBs">
     update club
-    set name = #{name,jdbcType=VARCHAR},
-      avatar_id = #{avatarId,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      consultant_name = #{consultantName,jdbcType=VARCHAR},
-      consultant_tel = #{consultantTel,jdbcType=VARCHAR},
-      initiator_id = #{initiatorId,jdbcType=INTEGER},
-      progress = #{progress,jdbcType=INTEGER},
-      introduction = #{introduction,jdbcType=LONGVARCHAR},
-      core_values = #{coreValues,jdbcType=LONGVARCHAR},
-      plans = #{plans,jdbcType=LONGVARCHAR},
-      practically_analysis = #{practicallyAnalysis,jdbcType=LONGVARCHAR}
+    set name                 = #{name,jdbcType=VARCHAR},
+        avatar_id            = #{avatarId,jdbcType=INTEGER},
+        type                 = #{type,jdbcType=INTEGER},
+        consultant_name      = #{consultantName,jdbcType=VARCHAR},
+        consultant_tel       = #{consultantTel,jdbcType=VARCHAR},
+        initiator_id         = #{initiatorId,jdbcType=INTEGER},
+        progress             = #{progress,jdbcType=INTEGER},
+        apply_time           = #{applyTime,jdbcType=TIMESTAMP},
+        introduction         = #{introduction,jdbcType=LONGVARCHAR},
+        core_values          = #{coreValues,jdbcType=LONGVARCHAR},
+        plans                = #{plans,jdbcType=LONGVARCHAR},
+        practically_analysis = #{practicallyAnalysis,jdbcType=LONGVARCHAR}
     where club_id = #{clubId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.club.model.Club">
     update club
-    set name = #{name,jdbcType=VARCHAR},
-      avatar_id = #{avatarId,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      consultant_name = #{consultantName,jdbcType=VARCHAR},
-      consultant_tel = #{consultantTel,jdbcType=VARCHAR},
-      initiator_id = #{initiatorId,jdbcType=INTEGER},
-      progress = #{progress,jdbcType=INTEGER}
+    set name            = #{name,jdbcType=VARCHAR},
+        avatar_id       = #{avatarId,jdbcType=INTEGER},
+        type            = #{type,jdbcType=INTEGER},
+        consultant_name = #{consultantName,jdbcType=VARCHAR},
+        consultant_tel  = #{consultantTel,jdbcType=VARCHAR},
+        initiator_id    = #{initiatorId,jdbcType=INTEGER},
+        progress        = #{progress,jdbcType=INTEGER},
+        apply_time      = #{applyTime,jdbcType=TIMESTAMP}
     where club_id = #{clubId,jdbcType=INTEGER}
   </update>
 </mapper>

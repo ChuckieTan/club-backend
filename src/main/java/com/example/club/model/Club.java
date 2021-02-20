@@ -1,5 +1,7 @@
 package com.example.club.model;
 
+import java.util.Date;
+
 public class Club {
     private Integer clubId;
 
@@ -16,6 +18,16 @@ public class Club {
     private Integer initiatorId;
 
     private Integer progress;
+
+    private Date applyTime;
+
+    public Date getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
+    }
 
     public Integer getClubId() {
         return clubId;
@@ -92,6 +104,7 @@ public class Club {
                 ", consultantTel='" + consultantTel + '\'' +
                 ", initiatorId=" + initiatorId +
                 ", progress=" + progress +
+                ", applyTime=" + applyTime +
                 '}';
     }
 }
