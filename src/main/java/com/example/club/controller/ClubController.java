@@ -97,7 +97,7 @@ public class ClubController {
         if (club.getPracticallyAnalysis() != null && !club.getPracticallyAnalysis().equals(dbClub.getPracticallyAnalysis())) {
             return new Result(-1, "不能修改可行性分析", null);
         }
-
+        club.setClubId(clubId);
         clubService.changeClubInfo(club);
         return new Result(1, "修改成功", null);
     }
