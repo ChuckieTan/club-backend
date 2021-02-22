@@ -28,11 +28,6 @@ public class ClubController {
     UserService userService;
 
     @GetMapping(value = "/club")
-    public Result getAllClubsInfo() {
-        return new Result(1, "查询成功", clubService.findClubs());
-    }
-
-    @GetMapping(value = "/clubs")
     public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageQuery) {
         if (pageQuery == null) {
             return new Result(1, "查询成功", clubService.findClubs());
