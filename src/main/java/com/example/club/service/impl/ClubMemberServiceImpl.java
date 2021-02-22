@@ -53,4 +53,9 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     public int changeClubMemberInfo(ClubMember clubMember) {
         return clubMemberMapper.updateByPrimaryKeySelective(clubMember);
     }
+
+    @Override
+    public int deleteClubAllMembers(Integer clubId) {
+        return clubMemberMapper.deleteByClubId(clubId);
+    }
 }

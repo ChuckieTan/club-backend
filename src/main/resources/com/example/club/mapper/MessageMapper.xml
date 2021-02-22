@@ -50,6 +50,11 @@
         from message
         where message_id = #{messageId,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteByClubId" parameterType="java.lang.Integer">
+        delete
+        from message
+        where club_id = #{clubId,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="messageId"
             parameterType="com.example.club.model.MessageWithBLOBs">
         insert into message (message_id, release_time, club_id,

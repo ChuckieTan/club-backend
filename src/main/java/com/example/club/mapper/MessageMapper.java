@@ -23,4 +23,6 @@ public interface MessageMapper {
     List<MessageWithBLOBs> selectByClubId(Integer id);
 
     List<MessageWithBLOBs> selectByAuthorId(Integer userId);
+
+    int deleteByClubId(Integer clubId);
 }

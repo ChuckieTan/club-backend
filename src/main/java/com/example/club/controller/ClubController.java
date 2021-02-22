@@ -59,6 +59,13 @@ public class ClubController {
         if (clubService.findClubById(clubId) == null) {
             return new Result(-1, "社团不存在", null);
         } else {
+            try {
+                clubMemberService.deleteClubAllMembers(clubId);
+                messageService.deleteClubAllMessages(clubId);
+                clubService.deleteClubById(clubId);
+            } catch (Exception e) {
+                return new Result(-1, "未知错误", null);
+            }
             return new Result(1, "删除成功", null);
         }
     }

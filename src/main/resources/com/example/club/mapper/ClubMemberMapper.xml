@@ -59,6 +59,11 @@
         where club_id = #{clubId,jdbcType=INTEGER}
           and user_id = #{userId,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteByClubId" parameterType="com.example.club.model.ClubMemberKey">
+        delete
+        from club_member
+        where club_id = #{clubId,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.example.club.model.ClubMember">
         insert into club_member (club_id, user_id, role,
                                  is_agree, apply_time, grade,

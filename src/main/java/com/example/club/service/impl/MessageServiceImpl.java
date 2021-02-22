@@ -62,4 +62,9 @@ public class MessageServiceImpl implements MessageService {
         result.sort(comparator);
         return result;
     }
+
+    @Override
+    public int deleteClubAllMessages(Integer clubId) {
+        return messageMapper.deleteByClubId(clubId);
+    }
 }
