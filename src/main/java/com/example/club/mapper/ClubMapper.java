@@ -16,6 +16,8 @@ public interface ClubMapper {
 
     List<ClubWithBLOBs> selectAll();
 
+    List<ClubWithBLOBs> selectPage();
+
     int updateByPrimaryKeySelective(ClubWithBLOBs record);
 
     int updateByPrimaryKeyWithBLOBs(ClubWithBLOBs record);

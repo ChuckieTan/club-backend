@@ -3,6 +3,11 @@ package com.example.club.service.impl;
 import com.example.club.mapper.ClubMapper;
 import com.example.club.model.ClubWithBLOBs;
 import com.example.club.service.ClubService;
+import com.example.club.util.PageRequest;
+import com.example.club.util.PageResult;
+import com.example.club.util.PageUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +23,25 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubWithBLOBs> findClubs() {
         return clubMapper.selectAll();
+    }
+
+    @Override
+    public PageResult findClubsByPage(PageRequest pageRequest) {
+        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
+    }
+
+    /**
+     * 调用分页插件完成分页
+     *
+     * @param pageRequest
+     * @return
+     */
+    private PageInfo<ClubWithBLOBs> getPageInfo(PageRequest pageRequest) {
+        int pageNum = pageRequest.getPageNum();
+        int pageSize = pageRequest.getPageSize();
+        PageHelper.startPage(pageNum, pageSize);
+        List<ClubWithBLOBs> sysMenus = clubMapper.selectPage();
+        return new PageInfo<ClubWithBLOBs>(sysMenus);
     }
 
     @Override

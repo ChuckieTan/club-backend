@@ -6,6 +6,7 @@ import com.example.club.model.ClubWithBLOBs;
 import com.example.club.service.ClubMemberService;
 import com.example.club.service.ClubService;
 import com.example.club.service.UserService;
+import com.example.club.util.PageRequest;
 import com.example.club.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,17 @@ public class ClubController {
     @GetMapping(value = "/club")
     public Result getAllClubsInfo() {
         return new Result(1, "查询成功", clubService.findClubs());
+    }
+
+    @GetMapping(value = "/clubs")
+    public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageQuery) {
+        if (pageQuery == null) {
+            return new Result(1, "查询成功", clubService.findClubs());
+        } else {
+            return new Result(1,
+                    "查询成功",
+                    clubService.findClubsByPage(pageQuery));
+        }
     }
 
     @GetMapping(value = "/club/{club-id}/info")
