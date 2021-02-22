@@ -3,6 +3,7 @@
 - 社团
   - [x] 获取所有社团名字图片描述 GET /api/club
   - [x] 获取某个社团的信息 GET /api/club/``club-id``/info
+  - [ ] 删除一个社团 DELETE /api/club/``club-id``
   - [x] 申请社团 POST /api/club
   - [x] 修改社团信息 PUT /api/club/``club-id``/info
   - [x] 获取创建社团的申请列表 GET /api/club/apply
