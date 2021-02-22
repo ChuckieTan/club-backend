@@ -50,6 +50,14 @@ public class ClubController {
         return result;
     }
 
+    @DeleteMapping(value = "/club/{club-id}")
+    public Result deleteClubById(@PathVariable("club-id") Integer clubId) {
+        if (clubService.deleteClubById(clubId) != 1) {
+            return new Result(-1, "社团不存在", null);
+        } else {
+            return new Result(1, "删除成功", null);
+        }
+    }
 
     @PostMapping(value = "/club")
     public Result createClub(@RequestBody ClubWithBLOBs club) {

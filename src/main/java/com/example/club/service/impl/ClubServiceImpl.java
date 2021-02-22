@@ -69,4 +69,9 @@ public class ClubServiceImpl implements ClubService {
         return clubMapper.selectByProgress(1);
     }
 
+    @Override
+    public int deleteClubById(Integer clubId) {
+        return clubMapper.deleteByPrimaryKey(clubId);
+    }
+
 }

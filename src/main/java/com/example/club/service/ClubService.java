@@ -30,4 +30,6 @@ public interface ClubService {
     List<ClubWithBLOBs> getCreatedClubs(Integer initiatorId);
 
     List<ClubWithBLOBs> getApplyClubs();
+
+    int deleteClubById(Integer clubId);
 }
