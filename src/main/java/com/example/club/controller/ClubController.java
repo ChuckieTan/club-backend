@@ -5,6 +5,7 @@ import com.example.club.model.ClubMember;
 import com.example.club.model.ClubWithBLOBs;
 import com.example.club.service.ClubMemberService;
 import com.example.club.service.ClubService;
+import com.example.club.service.MessageService;
 import com.example.club.service.UserService;
 import com.example.club.util.PageRequest;
 import com.example.club.util.Result;
@@ -22,6 +23,9 @@ public class ClubController {
 
     @Resource
     ClubMemberService clubMemberService;
+
+    @Resource
+    MessageService messageService;
 
     public static Logger logger = LoggerFactory.getLogger(ClubController.class);
     @Resource
@@ -52,7 +56,7 @@ public class ClubController {
 
     @DeleteMapping(value = "/club/{club-id}")
     public Result deleteClubById(@PathVariable("club-id") Integer clubId) {
-        if (clubService.deleteClubById(clubId) != 1) {
+        if (clubService.findClubById(clubId) == null) {
             return new Result(-1, "社团不存在", null);
         } else {
             return new Result(1, "删除成功", null);

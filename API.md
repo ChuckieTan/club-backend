@@ -16,7 +16,7 @@
 
   - [x] 获取某个社团的信息 GET /api/club/``club-id``/info
 
-  - [ ] 删除一个社团 DELETE /api/club/``club-id``
+  - [x] 删除一个社团 DELETE /api/club/``club-id``
 
   - [x] 申请社团 POST /api/club
 
