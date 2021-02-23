@@ -6,12 +6,9 @@ import com.example.club.service.ClubService;
 import com.example.club.util.PageRequest;
 import com.example.club.util.PageResult;
 import com.example.club.util.PageUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -27,21 +24,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public PageResult findAllClubsByPage(PageRequest pageRequest) {
-        return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
-    }
-
-    /**
-     * 调用分页插件完成分页
-     *
-     * @param pageRequest
-     * @return
-     */
-    private PageInfo<ClubWithBLOBs> getPageInfo(PageRequest pageRequest) {
-        int pageNum = pageRequest.getPageNum();
-        int pageSize = pageRequest.getPageSize();
-        PageHelper.startPage(pageNum, pageSize);
-        List<ClubWithBLOBs> sysMenus = clubMapper.selectPage();
-        return new PageInfo<ClubWithBLOBs>(sysMenus);
+        return PageUtils.getPageResult(pageRequest, () -> clubMapper.selectPage());
     }
 
     @Override
@@ -50,7 +33,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public int createClub(ClubWithBLOBs club) throws SQLException {
+    public int createClub(ClubWithBLOBs club) {
         return clubMapper.insertSelective(club);
     }
 
