@@ -4,15 +4,7 @@
 - 社团
   - [x] 获取所有社团名字图片描述 GET /api/club
 
-  - [x] 分页获取所有社团名字图片描述 GET /api/club
-
-    ```
-    request body:
-    {
-        "pageNum": 1,
-        "pageSize": 10
-    }
-    ```
+  - [x] 分页获取所有社团名字图片描述 GET /api/club + page request body
 
   - [x] 获取某个社团的信息 GET /api/club/``club-id``/info
 
@@ -60,6 +52,8 @@
 - 图片
   - [x] 上传图片 POST /api/image
   - [x] 获取图片 GET /api/image/``picture-id``
+- 搜索
+  - [x] 分页搜索社团 GET /api/search/club/``word `` + page request body
 
 ```
 club的progress
@@ -75,5 +69,13 @@ club_member的role
 1表示管理员
 2表示普通成员
 3表示未审核的成员
+```
+
+```
+page request body:
+{
+    "pageNum": 1,
+    "pageSize": 10
+}
 ```
 
