@@ -8,11 +8,13 @@ import com.example.club.service.UserService;
 import com.example.club.util.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
+@Transactional
 @RestController
 public class ClubMemberController {
     @Resource
@@ -24,6 +26,7 @@ public class ClubMemberController {
     @Resource
     ClubService clubService;
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/{user-id}/joined-club")
     public Result getUserJoinedClubs(@PathVariable("user-id") Integer userId) {
         User user = userService.queryInfoById(userId);
@@ -33,6 +36,7 @@ public class ClubMemberController {
         return new Result(1, "查询成功", clubMemberService.getUserClubs(userId));
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/joined-club")
     public Result getMyJoinedClubs() {
         Subject subject = SecurityUtils.getSubject();
@@ -43,6 +47,7 @@ public class ClubMemberController {
         return getUserJoinedClubs(userId);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/created-club")
     public Result getMyCreatedClubs() {
         Subject subject = SecurityUtils.getSubject();
@@ -53,6 +58,7 @@ public class ClubMemberController {
         return getUserCreatedClubs(userId);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/{user-id}/created-club")
     public Result getUserCreatedClubs(@PathVariable("user-id") Integer userId) {
         return new Result(1,
@@ -83,6 +89,7 @@ public class ClubMemberController {
         return new Result(1, "申请成功", null);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/{club-id}/user/{user-id}/info")
     public Result getClubMemberInfo(@PathVariable("club-id") Integer clubId,
                                     @PathVariable("user-id") Integer userId) {
@@ -106,6 +113,7 @@ public class ClubMemberController {
         return new Result(1, "修改成功", null);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/{club-id}/apply")
     public Result getClubApplyUsers(@PathVariable("club-id") Integer clubId) {
         return new Result(1,
@@ -129,6 +137,7 @@ public class ClubMemberController {
 
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/{club-id}/member")
     public Result getClubMembers(@PathVariable("club-id") Integer clubId) {
         if (clubService.findClubById(clubId) == null) {

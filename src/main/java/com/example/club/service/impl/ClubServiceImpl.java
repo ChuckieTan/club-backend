@@ -26,7 +26,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public PageResult findClubsByPage(PageRequest pageRequest) {
+    public PageResult findAllClubsByPage(PageRequest pageRequest) {
         return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
     }
 

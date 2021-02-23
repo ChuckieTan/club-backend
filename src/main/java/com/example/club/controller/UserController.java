@@ -5,16 +5,19 @@ import com.example.club.service.UserService;
 import com.example.club.util.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Objects;
 
+@Transactional
 @RestController
 public class UserController {
     @Resource
     UserService userService;
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/{user-id}/info")
     public Result queryInfo(@PathVariable("user-id") Integer userId) {
         User user = userService.queryInfoById(userId);
@@ -49,6 +52,7 @@ public class UserController {
         return result;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/logged-user")
     public Result loggedUser() {
         Result result = null;
@@ -64,6 +68,7 @@ public class UserController {
         return result;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/info")
     public Result queryLoginInfo() {
         Result result = null;

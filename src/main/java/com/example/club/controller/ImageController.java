@@ -6,11 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
+@Transactional
 @Controller
 public class ImageController {
     @Resource
@@ -38,8 +40,8 @@ public class ImageController {
         return result;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/image/{image-id}", produces = MediaType.IMAGE_JPEG_VALUE)
-    @ResponseBody
     public byte[] getImage(@PathVariable("image-id") Integer imageId) {
         byte[] result = null;
         try {

@@ -11,11 +11,13 @@ import com.example.club.util.PageRequest;
 import com.example.club.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
+@Transactional
 @RestController
 public class ClubController {
     @Resource
@@ -31,6 +33,7 @@ public class ClubController {
     @Resource
     UserService userService;
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club")
     public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageQuery) {
         if (pageQuery == null) {
@@ -38,10 +41,11 @@ public class ClubController {
         } else {
             return new Result(1,
                     "查询成功",
-                    clubService.findClubsByPage(pageQuery));
+                    clubService.findAllClubsByPage(pageQuery));
         }
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/{club-id}/info")
     public Result getClubInfoById(@PathVariable("club-id") Integer clubId) {
         Result result = null;
@@ -136,6 +140,7 @@ public class ClubController {
      *
      * @return
      */
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/apply")
     public Result getApplyClubs() {
         return new Result(1, "查询成功", clubService.getApplyClubs());

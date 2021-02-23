@@ -8,6 +8,7 @@ import com.example.club.service.*;
 import com.example.club.util.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @RestController
 public class MessageController {
     @Resource
@@ -77,6 +79,7 @@ public class MessageController {
         return new Result(1, "修改成功", null);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/messages")
     public Result getUserMessages() {
         Subject subject = SecurityUtils.getSubject();
@@ -107,6 +110,7 @@ public class MessageController {
         return new Result(1, "删除成功", null);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/club/{club-id}/message")
     public Result getClubMessages(@PathVariable("club-id") Integer clubId) {
         if (clubService.findClubById(clubId) == null) {
@@ -115,6 +119,7 @@ public class MessageController {
         return new Result(1, "查询成功", messageService.getClubMessages(clubId));
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/message/{message-id}")
     public Result getMessage(@PathVariable("message-id") Integer messageId) {
         Message message = messageService.getMesssageById(messageId);
@@ -124,6 +129,7 @@ public class MessageController {
         return new Result(-1, "查询成功", message);
     }
 
+    @Transactional(readOnly = true)
     @GetMapping(value = "/user/my-messages")
     public Result getMyMessages() {
         Subject subject = SecurityUtils.getSubject();
