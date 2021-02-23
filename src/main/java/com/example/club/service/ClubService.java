@@ -32,4 +32,6 @@ public interface ClubService {
     List<ClubWithBLOBs> getApplyClubs();
 
     int deleteClubById(Integer clubId);
+
+    PageResult searchClubsByPage(String word, PageRequest pageRequest);
 }

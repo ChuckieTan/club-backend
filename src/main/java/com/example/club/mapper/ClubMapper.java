@@ -16,7 +16,9 @@ public interface ClubMapper {
 
     List<ClubWithBLOBs> selectAll();
 
-    List<ClubWithBLOBs> selectPage();
+    List<ClubWithBLOBs> selectAllByPage();
+
+    List<ClubWithBLOBs> searchByPage(String word);
 
     int updateByPrimaryKeySelective(ClubWithBLOBs record);
 

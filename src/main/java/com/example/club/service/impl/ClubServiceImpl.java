@@ -24,7 +24,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public PageResult findAllClubsByPage(PageRequest pageRequest) {
-        return PageUtils.getPageResult(pageRequest, () -> clubMapper.selectPage());
+        return PageUtils.getPageResult(pageRequest, () -> clubMapper.selectAllByPage());
     }
 
     @Override
@@ -55,6 +55,11 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public int deleteClubById(Integer clubId) {
         return clubMapper.deleteByPrimaryKey(clubId);
+    }
+
+    @Override
+    public PageResult searchClubsByPage(String word, PageRequest pageRequest) {
+        return PageUtils.getPageResult(pageRequest, () -> clubMapper.searchByPage(word));
     }
 
 }
