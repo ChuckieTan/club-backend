@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
-@Transactional
+//@Transactional
 @Controller
 public class ImageController {
     @Resource
@@ -40,6 +40,7 @@ public class ImageController {
         return result;
     }
 
+    @ResponseBody
     @Transactional(readOnly = true)
     @GetMapping(value = "/image/{image-id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(@PathVariable("image-id") Integer imageId) {
