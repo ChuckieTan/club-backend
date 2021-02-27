@@ -73,7 +73,6 @@ public class ClubMemberController {
         if (subject.getPrincipal() == null) {
             return new Result(-1, "未登录", null);
         }
-        System.out.println((String) subject.getPrincipal());
         Integer userId = userService.queryInfoByNumber((String) subject.getPrincipal()).getUserId();
         if (clubMember.getUserId() != null && !clubMember.getUserId().equals(userId)) {
             return new Result(-1, "user id 不正确", null);
@@ -81,10 +80,15 @@ public class ClubMemberController {
         if (clubMember.getClubId() != null && !clubMember.getClubId().equals(clubId)) {
             return new Result(-1, "club id 不匹配", null);
         }
+        if (clubService.findClubById(clubId) == null) {
+            return new Result(-1, "社团不存在", null);
+        }
         clubMember.setApplyTime(new Date());
         if (clubMember.getRole() == null) {
             clubMember.setRole(3);
         }
+        clubMember.setUserId(userId);
+        clubMember.setClubId(clubId);
         clubMemberService.newClubMember(clubMember);
         return new Result(1, "申请成功", null);
     }
