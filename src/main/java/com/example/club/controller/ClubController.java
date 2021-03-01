@@ -35,13 +35,13 @@ public class ClubController {
 
     @Transactional(readOnly = true)
     @GetMapping(value = "/club")
-    public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageQuery) {
-        if (pageQuery == null) {
+    public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageRequest) {
+        if (pageRequest == null) {
             return new Result(1, "查询成功", clubService.findClubs());
         } else {
             return new Result(1,
                     "查询成功",
-                    clubService.findAllClubsByPage(pageQuery));
+                    clubService.findAllClubsByPage(pageRequest));
         }
     }
 
