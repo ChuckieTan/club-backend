@@ -2,6 +2,8 @@ package com.example.club.mapper;
 
 import com.example.club.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -18,4 +20,6 @@ public interface UserMapper {
     int updateByPrimaryKeyWithBLOBs(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<User> searchByNumber(String number);
 }

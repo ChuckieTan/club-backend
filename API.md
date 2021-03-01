@@ -54,6 +54,7 @@
   - [x] 获取图片 GET /api/image/``picture-id``
 - 搜索
   - [x] 分页搜索社团 GET /api/search/club/``word `` + page request body
+  - [x] 通过学号搜索用户 GET /api/search/user/number/``number`` +page request body
 
 ```
 club的progress

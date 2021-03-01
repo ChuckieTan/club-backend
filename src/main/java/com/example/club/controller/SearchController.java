@@ -1,6 +1,8 @@
 package com.example.club.controller;
 
+import com.example.club.service.ClubMemberService;
 import com.example.club.service.ClubService;
+import com.example.club.service.UserService;
 import com.example.club.util.PageRequest;
 import com.example.club.util.Result;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,25 @@ public class SearchController {
     @Resource
     ClubService clubService;
 
+    @Resource
+    UserService userService;
+
+    @Resource
+    ClubMemberService clubMemberService;
+
     @GetMapping(value = "/search/club/{word}")
     public Result searchClubs(@PathVariable("word") String word,
                               @RequestBody PageRequest pageRequest) {
-        return new Result(1, "搜索成功", clubService.searchClubsByPage(word, pageRequest));
+        return new Result(1,
+                "搜索成功",
+                clubService.searchClubsByPage(word, pageRequest));
+    }
+
+    @GetMapping(value = "/search/user/number/{number}")
+    public Result searchClubMembersByNumber(@PathVariable("number") String number,
+                                            @RequestBody PageRequest pageRequest) {
+        return new Result(1,
+                "搜索成功",
+                userService.searchUserByNumber(number, pageRequest));
     }
 }
