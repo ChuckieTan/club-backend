@@ -42,6 +42,7 @@
   - [x] 更改用户信息 PUT /api/user/``user-id``/info
 - 登录注册
   - [x] 登录 POST /api/login
+  - [x] 退出登录 POST /api/logout
   - [x] 注册 POST /api/register
 - 图片
   - [x] 上传图片 POST /api/image
