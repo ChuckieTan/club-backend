@@ -23,6 +23,7 @@ public class UserController {
         User user = userService.queryInfoById(userId);
         Result result = null;
         if (user != null) {
+            user.setPassword(null);
             result = new Result(1, "查询成功", user);
         } else {
             result = new Result(-1, "用户不存在", null);
