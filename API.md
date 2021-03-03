@@ -4,7 +4,7 @@
 - 社团
   - [x] 获取所有社团名字图片描述 GET /api/club
 
-  - [x] 分页获取所有社团名字图片描述 GET /api/club + page request body
+  - [x] 分页获取所有社团名字图片描述 GET /api/club + page request params
 
   - [x] 获取某个社团的信息 GET /api/club/``club-id``/info
 
@@ -53,8 +53,8 @@
   - [x] 上传图片 POST /api/image
   - [x] 获取图片 GET /api/image/``picture-id``
 - 搜索
-  - [x] 分页搜索社团 GET /api/search/club/``word `` + page request body
-  - [x] 通过学号搜索用户 GET /api/search/user/number/``number`` +page request body
+  - [x] 分页搜索社团 GET /api/search/club/``word `` + page request params
+  - [x] 通过学号搜索用户 GET /api/search/user/number/``number`` +page request params
 
 ```
 club的progress
@@ -73,10 +73,8 @@ club_member的role
 ```
 
 ```
-page request body:
-{
+page request params:
     "pageNum": 1,
     "pageSize": 10
-}
 ```
 

@@ -8,7 +8,6 @@ import com.example.club.util.Result;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -27,7 +26,7 @@ public class SearchController {
 
     @GetMapping(value = "/search/club/{word}")
     public Result searchClubs(@PathVariable("word") String word,
-                              @RequestBody PageRequest pageRequest) {
+                              PageRequest pageRequest) {
         return new Result(1,
                 "搜索成功",
                 clubService.searchClubsByPage(word, pageRequest));
@@ -35,7 +34,7 @@ public class SearchController {
 
     @GetMapping(value = "/search/user/number/{number}")
     public Result searchClubMembersByNumber(@PathVariable("number") String number,
-                                            @RequestBody PageRequest pageRequest) {
+                                            PageRequest pageRequest) {
         return new Result(1,
                 "搜索成功",
                 userService.searchUserByNumber(number, pageRequest));

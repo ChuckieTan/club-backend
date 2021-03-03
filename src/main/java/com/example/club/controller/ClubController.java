@@ -35,14 +35,11 @@ public class ClubController {
 
     @Transactional(readOnly = true)
     @GetMapping(value = "/club")
-    public Result getAllClubsInfo(@RequestBody(required = false) PageRequest pageRequest) {
-        if (pageRequest == null) {
-            return new Result(1, "查询成功", clubService.findClubs());
-        } else {
-            return new Result(1,
-                    "查询成功",
-                    clubService.findAllClubsByPage(pageRequest));
-        }
+    public Result getAllClubsInfo(PageRequest pageRequest) {
+        return new Result(1,
+                "查询成功",
+                clubService.findAllClubsByPage(pageRequest));
+
     }
 
     @Transactional(readOnly = true)
