@@ -7,7 +7,7 @@
     ```
     参数：
     page request params
-    process (可选)
+    progress (可选)
     ```
   - [x] 获取某个社团的信息 GET /api/club/``club-id``/info
   - [x] 删除一个社团 DELETE /api/club/``club-id``
