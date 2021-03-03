@@ -35,16 +35,33 @@ public class ClubController {
 
     @Transactional(readOnly = true)
     @GetMapping(value = "/club")
-    public Result getAllClubsInfo(PageRequest pageRequest,
+    public Result getAllClubsInfo(@RequestParam(required = false) Integer pageSize,
+                                  @RequestParam(required = false) Integer pageNum,
                                   @RequestParam(required = false) Integer progress) {
-        if (progress == null) {
-            return new Result(1,
-                    "查询成功",
-                    clubService.findAllClubsByPage(pageRequest));
+        PageRequest pageRequest = null;
+        if (pageSize != null && pageNum != null) {
+            pageRequest = new PageRequest(pageNum, pageSize);
+        }
+        if (pageRequest == null) {
+            if (progress == null) {
+                return new Result(1,
+                        "查询成功",
+                        clubService.findClubs());
+            } else {
+                return new Result(1,
+                        "查询成功",
+                        clubService.findAllClubsByProgress(progress));
+            }
         } else {
-            return new Result(1,
-                    "查询成功",
-                    clubService.findClubsByProgress(pageRequest, progress));
+            if (progress == null) {
+                return new Result(1,
+                        "查询成功",
+                        clubService.findAllClubsByPage(pageRequest));
+            } else {
+                return new Result(1,
+                        "查询成功",
+                        clubService.findClubsByProgress(pageRequest, progress));
+            }
         }
     }
 

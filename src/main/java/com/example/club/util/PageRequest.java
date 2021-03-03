@@ -28,4 +28,13 @@ public class PageRequest {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
+
+    public PageRequest() {
+    }
+
+    public PageRequest(int pageNum, int pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
 }

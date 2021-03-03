@@ -27,4 +27,6 @@ public interface ClubService {
     PageResult searchClubsByPage(String word, PageRequest pageRequest);
 
     PageResult findClubsByProgress(PageRequest pageRequest, Integer progress);
+
+    List<ClubWithBLOBs> findAllClubsByProgress(Integer progress);
 }

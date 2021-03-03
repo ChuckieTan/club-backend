@@ -67,4 +67,9 @@ public class ClubServiceImpl implements ClubService {
         return PageUtils.getPageResult(pageRequest, () -> clubMapper.selectByProgress(progress));
     }
 
+    @Override
+    public List<ClubWithBLOBs> findAllClubsByProgress(Integer progress) {
+        return clubMapper.selectByProgress(progress);
+    }
+
 }
