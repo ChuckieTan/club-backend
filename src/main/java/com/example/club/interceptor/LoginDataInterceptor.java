@@ -5,7 +5,6 @@ import com.example.club.service.LoginDataService;
 import com.example.club.service.UserService;
 import com.example.club.util.IpUtil;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mobile.device.Device;
@@ -71,7 +70,7 @@ public class LoginDataInterceptor implements HandlerInterceptor {
             String ip = IpUtil.getIpAddr(request);
             String device = getDeviceName(request);
             LoginData loginData = new LoginData(userId, new Date(), ip, device);
-            if ("/api/login".equals(request.getServletPath())) {
+            if ("/login".equals(request.getServletPath())) {
                 loginDataService.insertNewRecord(loginData);
             }
             logger.info(principal + "访问页面" + url);
