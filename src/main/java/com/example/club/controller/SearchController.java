@@ -27,7 +27,6 @@ public class SearchController {
     @GetMapping(value = "/search/club/{word}")
     public Result searchClubs(@PathVariable("word") String word,
                               PageRequest pageRequest) {
-        System.out.println(pageRequest.getPageNum() + " " + pageRequest.getPageSize());
         return new Result(1,
                 "搜索成功",
                 clubService.searchClubsByPage(word, pageRequest));
