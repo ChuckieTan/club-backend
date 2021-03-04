@@ -83,6 +83,9 @@ public class ClubMemberController {
         if (clubService.findClubById(clubId) == null) {
             return new Result(-1, "社团不存在", null);
         }
+        if (clubMemberService.getClubMemberInfo(clubId, userId) != null) {
+            return new Result(-1, "已申请过", null);
+        }
         clubMember.setApplyTime(new Date());
         if (clubMember.getRole() == null) {
             clubMember.setRole(3);
