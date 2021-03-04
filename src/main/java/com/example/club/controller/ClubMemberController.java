@@ -83,8 +83,13 @@ public class ClubMemberController {
         if (clubService.findClubById(clubId) == null) {
             return new Result(-1, "社团不存在", null);
         }
-        if (clubMemberService.getClubMemberInfo(clubId, userId) != null) {
-            return new Result(-1, "已申请过", null);
+        var dbMember = clubMemberService.getClubMemberInfo(clubId, userId);
+        if (dbMember != null) {
+            if (dbMember.getRole() == 3) {
+                return new Result(-1, "已申请过一次", null);
+            } else {
+                return new Result(-1, "已经是该社团的成员", null);
+            }
         }
         clubMember.setApplyTime(new Date());
         if (clubMember.getRole() == null) {
