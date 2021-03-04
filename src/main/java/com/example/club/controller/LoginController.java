@@ -47,6 +47,6 @@ public class LoginController {
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return null;
+        return new Result(1, "退出登录成功", null);
     }
 }
