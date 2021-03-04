@@ -59,7 +59,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public PageResult searchClubsByPage(String word, PageRequest pageRequest) {
-        return PageUtils.getPageResult(pageRequest, () -> clubMapper.searchByPage(word));
+        return PageUtils.getPageResult(pageRequest, () -> clubMapper.searchByProgress(word, 3));
     }
 
     @Override
