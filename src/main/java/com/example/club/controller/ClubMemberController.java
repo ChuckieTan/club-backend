@@ -8,6 +8,8 @@ import com.example.club.service.UserService;
 import com.example.club.util.Result;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,8 @@ public class ClubMemberController {
 
     @Resource
     ClubService clubService;
+
+    Logger logger = LoggerFactory.getLogger(ClubMemberController.class);
 
     @Transactional(readOnly = true)
     @GetMapping(value = "/user/{user-id}/joined-club")
@@ -172,14 +176,19 @@ public class ClubMemberController {
         if (clubMemberService.getClubMemberInfo(clubId, newPresidentId) == null) {
             return new Result(-1, "该用户不在社团中", null);
         }
-
-        ClubMember oldPresident = clubMemberService.getClubPresident(clubId);
+        ClubMember oldPresident = null;
+        try {
+            oldPresident = clubMemberService.getClubPresident(clubId);
+        } catch (IndexOutOfBoundsException e) {
+            logger.error("社团" + clubId + "不存在社长");
+            return new Result(-1, "社团" + clubId + "不存在社长", null);
+        }
         oldPresident.setRole(2);
 
         ClubMember newPresident = new ClubMember();
         newPresident.setClubId(clubId);
         newPresident.setUserId(newPresidentId);
-        newPresident.setRole(1);
+        newPresident.setRole(0);
 
         clubMemberService.changeClubMemberInfo(oldPresident);
         clubMemberService.changeClubMemberInfo(newPresident);

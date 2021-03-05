@@ -44,7 +44,7 @@
         from club_member
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
-    <select id="selectByClubAndRole" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    <select id="selectByClubIdAndRole" resultMap="ResultMapWithBLOBs">
         select
         <include refid="Base_Column_List"/>
         ,
