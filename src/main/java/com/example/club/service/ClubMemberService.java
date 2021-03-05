@@ -22,4 +22,6 @@ public interface ClubMemberService {
     int changeClubMemberInfo(ClubMember clubMember);
 
     int deleteClubAllMembers(Integer clubId);
+
+    ClubMember getClubPresident(Integer clubId);
 }

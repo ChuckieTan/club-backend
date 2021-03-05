@@ -24,7 +24,7 @@ public interface ClubMemberMapper {
 
     List<ClubMember> selectByUserId(Integer userId);
 
-    List<ClubMember> selectByClubAndRole(Integer clubId, Integer role);
+    List<ClubMember> selectByClubIdAndRole(Integer clubId, Integer role);
 
     int deleteByClubId(Integer clubId);
 }

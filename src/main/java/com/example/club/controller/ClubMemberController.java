@@ -158,11 +158,32 @@ public class ClubMemberController {
         return new Result(1, "查询成功", clubMemberService.getClubMembers(clubId));
     }
 
-    @DeleteMapping(value = "/club/{club-id}/user/{user-id}")
-    public Result deleteClubMember(@PathVariable("club-id") Integer clubId,
-                                   @PathVariable("user-id") Integer userId) {
+    @DeleteMapping(value = "/club/{clubId}/user/{userId}")
+    public Result deleteClubMember(@PathVariable Integer clubId,
+                                   @PathVariable Integer userId) {
         return new Result(1,
                 "删除成功",
                 clubMemberService.deleteMember(clubId, userId));
+    }
+
+    @PutMapping(value = "/club/{clubId}/president")
+    public Result resetClubPresident(@PathVariable Integer clubId,
+                                     @RequestParam Integer newPresidentId) {
+        if (clubMemberService.getClubMemberInfo(clubId, newPresidentId) == null) {
+            return new Result(-1, "该用户不在社团中", null);
+        }
+
+        ClubMember oldPresident = clubMemberService.getClubPresident(clubId);
+        oldPresident.setRole(2);
+
+        ClubMember newPresident = new ClubMember();
+        newPresident.setClubId(clubId);
+        newPresident.setUserId(newPresidentId);
+        newPresident.setRole(1);
+
+        clubMemberService.changeClubMemberInfo(oldPresident);
+        clubMemberService.changeClubMemberInfo(newPresident);
+
+        return new Result(1, "更改成功", null);
     }
 }

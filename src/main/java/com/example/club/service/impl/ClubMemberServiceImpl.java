@@ -31,7 +31,7 @@ public class ClubMemberServiceImpl implements ClubMemberService {
 
     @Override
     public List<ClubMember> getApplyMembers(Integer clubId) {
-        return clubMemberMapper.selectByClubAndRole(clubId, 3);
+        return clubMemberMapper.selectByClubIdAndRole(clubId, 3);
     }
 
     @Override
@@ -57,5 +57,10 @@ public class ClubMemberServiceImpl implements ClubMemberService {
     @Override
     public int deleteClubAllMembers(Integer clubId) {
         return clubMemberMapper.deleteByClubId(clubId);
+    }
+
+    @Override
+    public ClubMember getClubPresident(Integer clubId) {
+        return clubMemberMapper.selectByClubIdAndRole(clubId, 0).get(0);
     }
 }
