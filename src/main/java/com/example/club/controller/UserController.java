@@ -94,8 +94,6 @@ public class UserController {
     public Result changeLoginInfo(@RequestBody User user) {
         Result result = null;
 
-        System.out.println(user);
-
         Subject subject = SecurityUtils.getSubject();
         String loggedUserNumber = (String) subject.getPrincipal();
         if (loggedUserNumber == null) {
@@ -138,4 +136,20 @@ public class UserController {
         return result;
     }
 
+    @PutMapping(value = "/user/password")
+    public Result resetPassword(@RequestParam String oldPassword,
+                                @RequestParam String newPassword) {
+        Subject subject = SecurityUtils.getSubject();
+        String loggedUserNumber = (String) subject.getPrincipal();
+        if (loggedUserNumber == null) {
+            return new Result(-1, "未授权", null);
+        }
+        User loggedUser = userService.queryInfoByNumber(loggedUserNumber);
+        if (!loggedUser.getPassword().equals(oldPassword)) {
+            return new Result(-1, "原密码错误", null);
+        }
+        loggedUser.setPassword(newPassword);
+        userService.changeInfoById(loggedUser);
+        return new Result(1, "修改成功", null);
+    }
 }

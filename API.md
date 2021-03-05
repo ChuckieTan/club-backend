@@ -1,6 +1,7 @@
-- 登录信息
+登录信息
 
-  - [x] 获取 GET /api/user/``user-id``/login-data
+- [x] 获取 GET /api/user/``user-id``/login-data
+
 - 社团
   - [x] 获取所有社团名字图片描述 GET /api/club
   - [x] 分页获取所有社团名字图片描述 GET /api/club + page request params
@@ -30,16 +31,41 @@
   - [x] 已读某个消息 PUT /api/message/``message-id``/read
 - 社团成员
   - [x] 申请加入某个社团 POST /api/club/``club-id``/apply
+
   - [x] 获取申请加入的成员 GET /api/club/``club-id``/apply
+
   - [x] 获取某个社团某个成员的加入信息 GET /api/club/``club-id``/user/``user-id``/info
+
   - [x] 修改某个社团某个成员的加入信息 PUT /api/club/``club-id``/user/``user-id``/info
+
   - [x] 同意某个成员的申请即为更改某个成员的角色
-  - [x] 更改某人的角色 PUT /api/club/``club-id``/user/``user-id``/role
+
+  - [x] 更改某人的角色 PUT /api/club/``club-id``/user/``user-id``/r("user-id")ole
+
   - [x] 获取某个社团的所有成员id GET /api/club/``club-id``/member
+
   - [x] 踢出某个成员 DELETE /api/club/``club-id``/user/``user-id``
+
+  - [x] 修改一个社团的社长 PUT /api/club/``club-id``/president
+
+    ```
+    params:
+    newPresidentId
+    ```
 - 用户
   - [x] 获取用户信息 GET /api/user/``user-id``/info
+
   - [x] 更改用户信息 PUT /api/user/``user-id``/info
+
+  - [x] 修改用户密码 PUT /api/user/password
+
+    ```
+    params:
+    oldPassword
+    newPassword
+    ```
+
+
 - 登录注册
   - [x] 登录 POST /api/login
   - [x] 退出登录 POST /api/logout
